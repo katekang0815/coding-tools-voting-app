@@ -102,16 +102,22 @@
     animation: fadeInUp 0.6s ease-out forwards;
   }
   
-  @keyframes slideText {
+  @keyframes typing {
     from {
-      transform: translateX(100%);
+      width: 0;
     }
     to {
-      transform: translateX(-100%);
+      width: 100%;
     }
   }
   
-  .animate-slide-text {
-    animation: slideText 15s linear infinite;
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  .animate-typing {
+    animation: typing 3s steps(50, end), blink 1s infinite;
   }
 }

@@ -12,9 +12,11 @@ export default function HeroSection() {
             Vibe Coding
             <span className="text-[var(--brand-secondary)]"> Tools</span>
           </h1>
-          <div className="overflow-hidden mb-8 max-w-4xl mx-auto">
-            <div className="animate-slide-text text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed whitespace-nowrap">
-              Discover today's most innovative coding experiences! &nbsp;&nbsp;&nbsp;&nbsp; What AI Agent do you use most? Vote for it! &nbsp;&nbsp;&nbsp;&nbsp; Discover today's most innovative coding experiences! &nbsp;&nbsp;&nbsp;&nbsp; What AI Agent do you use most? Vote for it! &nbsp;&nbsp;&nbsp;&nbsp;
+          <div className="mb-8 max-w-4xl mx-auto">
+            <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed h-16 flex items-center justify-center">
+              <span className="animate-typing overflow-hidden whitespace-nowrap border-r-4 border-[var(--brand-accent)]">
+                Discover today's most innovative coding experiences!
+              </span>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
