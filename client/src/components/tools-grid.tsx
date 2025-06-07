@@ -12,62 +12,62 @@ const tools: Tool[] = [
   // First row - matching your image
   {
     name: "Corner",
-    icon: <Code className="w-12 h-12 md:w-14 md:h-14 text-white" />,
+    icon: <Code className="w-8 h-8 text-white" />,
     gradientFrom: "from-gray-800",
     gradientTo: "to-black"
   },
   {
     name: "Whizkdf",
-    icon: <Zap className="w-12 h-12 md:w-14 md:h-14 text-white" />,
+    icon: <Zap className="w-8 h-8 text-white" />,
     gradientFrom: "from-green-500",
     gradientTo: "to-green-600"
   },
   {
     name: "Tree",
-    icon: <TreePine className="w-12 h-12 md:w-14 md:h-14 text-white" />,
+    icon: <TreePine className="w-8 h-8 text-white" />,
     gradientFrom: "from-red-500",
     gradientTo: "to-red-600"
   },
   {
     name: "V0",
-    icon: <Palette className="w-12 h-12 md:w-14 md:h-14 text-white" />,
+    icon: <Palette className="w-8 h-8 text-white" />,
     gradientFrom: "from-blue-500",
     gradientTo: "to-blue-600"
   },
   {
     name: "Bolt",
-    icon: <Zap className="w-12 h-12 md:w-14 md:h-14 text-white" />,
+    icon: <Zap className="w-8 h-8 text-white" />,
     gradientFrom: "from-yellow-500",
     gradientTo: "to-orange-500"
   },
   // Second row
   {
     name: "Lovable",
-    icon: <Heart className="w-12 h-12 md:w-14 md:h-14 text-white" />,
+    icon: <Heart className="w-8 h-8 text-white" />,
     gradientFrom: "from-green-400",
     gradientTo: "to-green-500"
   },
   {
     name: "Replit",
-    icon: <Terminal className="w-12 h-12 md:w-14 md:h-14 text-white" />,
+    icon: <Terminal className="w-8 h-8 text-white" />,
     gradientFrom: "from-orange-500",
     gradientTo: "to-red-500"
   },
   {
     name: "Stark",
-    icon: <Square className="w-12 h-12 md:w-14 md:h-14 text-white" />,
+    icon: <Square className="w-8 h-8 text-white" />,
     gradientFrom: "from-gray-700",
     gradientTo: "to-gray-900"
   },
   {
     name: "Cursor",
-    icon: <Pointer className="w-12 h-12 md:w-14 md:h-14 text-white" />,
+    icon: <Pointer className="w-8 h-8 text-white" />,
     gradientFrom: "from-blue-400",
     gradientTo: "to-blue-600"
   },
   {
     name: "Rewind",
-    icon: <RefreshCw className="w-8 h-8 md:w-10 md:h-10 text-white" />,
+    icon: <RefreshCw className="w-8 h-8 text-white" />,
     gradientFrom: "from-gray-300",
     gradientTo: "to-gray-400"
   }
