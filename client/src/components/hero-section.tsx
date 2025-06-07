@@ -17,16 +17,19 @@ export default function HeroSection() {
               <span className="animate-typing overflow-hidden whitespace-nowrap border-r-4 border-[var(--brand-accent)]">
                 Discover today's most innovative coding experiences!
               </span>
+              <span className="animate-typing overflow-hidden whitespace-nowrap border-r-4 border-[var(--brand-accent)]">
+                What AI Agent do you use most? Vote for it!
+              </span>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
+            <Button
               size="lg"
               className="bg-[var(--brand-secondary)] hover:bg-[hsl(244,79%,52%)] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Explore Tools
             </Button>
-            <Button 
+            <Button
               variant="outline"
               size="lg"
               className="border-2 border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300"
@@ -46,7 +49,8 @@ export default function HeroSection() {
               Stay Updated
             </h2>
             <p className="text-base text-gray-600 dark:text-gray-300 mb-6">
-              Subscribe to get the latest updates on coding tools and developer resources.
+              Subscribe to get the latest updates on coding tools and developer
+              resources.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
@@ -54,9 +58,9 @@ export default function HeroSection() {
                 placeholder="Enter your email"
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
-              <Button 
+              <Button
                 className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-6 py-2 text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
-                onClick={() => alert('Subscription agreement sent!')}
+                onClick={() => alert("Subscription agreement sent!")}
               >
                 Subscribe
               </Button>
