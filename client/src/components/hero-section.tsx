@@ -35,28 +35,27 @@ export default function HeroSection() {
         {/* Tools Grid */}
         <ToolsGrid />
 
-        {/* Call to Action */}
-        <Card className="shadow-xl max-w-4xl mx-auto">
+        {/* Email Subscription */}
+        <Card className="shadow-xl max-w-2xl mx-auto">
           <CardContent className="p-8 md:p-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[var(--brand-primary)] mb-6">
-              Ready to Level Up Your Coding?
+              Stay Updated
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Join thousands of developers who are already using these cutting-edge tools to build the next generation of applications.
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+              Subscribe to get the latest updates on coding tools and developer resources.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
               <Button 
                 size="lg"
-                className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-8 py-3 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
+                onClick={() => alert('Subscription agreement sent!')}
               >
-                Get Started Free
-              </Button>
-              <Button 
-                variant="outline"
-                size="lg"
-                className="border-2 border-gray-300 text-gray-700 hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] dark:border-gray-600 dark:text-gray-300 dark:hover:border-[var(--brand-primary)] dark:hover:text-[var(--brand-primary)] px-8 py-4 text-lg font-semibold transition-all duration-300"
-              >
-                View Documentation
+                Subscribe
               </Button>
             </div>
           </CardContent>
