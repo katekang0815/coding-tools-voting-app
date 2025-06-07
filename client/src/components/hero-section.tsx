@@ -1,8 +1,32 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ToolsGrid from "@/components/tools-grid";
+import { useState, useEffect } from "react";
 
 export default function HeroSection() {
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+  
+  const messages = [
+    "Discover today's most innovative coding experiences!",
+    "What AI Agent do you use most? Vote for it!"
+  ];
+
+  useEffect(() => {
+    const typingDuration = 3000; // Time for typing animation
+    const pauseDuration = 2000; // Pause before switching messages
+    
+    const timer = setTimeout(() => {
+      setIsTyping(false);
+      setTimeout(() => {
+        setCurrentMessageIndex((prev) => (prev + 1) % messages.length);
+        setIsTyping(true);
+      }, 500); // Brief pause before starting next message
+    }, typingDuration + pauseDuration);
+
+    return () => clearTimeout(timer);
+  }, [currentMessageIndex, messages.length]);
+
   return (
     <section className="hero-gradient min-h-screen flex items-center justify-center px-4 py-16">
       <div className="max-w-6xl mx-auto text-center">
@@ -14,11 +38,11 @@ export default function HeroSection() {
           </h1>
           <div className="mb-8 max-w-4xl mx-auto">
             <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed h-16 flex items-center justify-center">
-              <span className="animate-typing overflow-hidden whitespace-nowrap border-r-4 border-[var(--brand-accent)]">
-                Discover today's most innovative coding experiences!
-              </span>
-              <span className="animate-typing overflow-hidden whitespace-nowrap border-r-4 border-[var(--brand-accent)]">
-                What AI Agent do you use most? Vote for it!
+              <span 
+                key={currentMessageIndex}
+                className={`overflow-hidden whitespace-nowrap border-r-4 border-[var(--brand-accent)] ${isTyping ? 'animate-typing' : ''}`}
+              >
+                {messages[currentMessageIndex]}
               </span>
             </div>
           </div>
