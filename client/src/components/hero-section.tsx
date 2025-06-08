@@ -18,7 +18,7 @@ export default function HeroSection() {
     
     try {
       // Use GET method with query parameters - most reliable for Google Apps Script
-      const url = `https://script.google.com/macros/s/AKfycbw2DQJv8ntVpkUgWOlWUhclnqvdqsnSnBrKG4loD3WqR3WCYvAZQJmGtkQSK2qu41UD/exec?email=${encodeURIComponent(email)}`;
+      const url = `https://script.google.com/macros/s/AKfycbz3F4RrhL-vi_EeLNG0EHUJEXVEOPWuHKqGX3CpkVfjBJUeGMyCmSe5sEHfqQLlbIBE/exec?email=${encodeURIComponent(email)}`;
       
       const response = await fetch(url, {
         method: "GET",
