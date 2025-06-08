@@ -102,52 +102,16 @@
     animation: fadeInUp 0.6s ease-out forwards;
   }
   
-  @keyframes typing {
+  @keyframes slideText {
     from {
-      width: 0;
+      transform: translateX(100%);
     }
     to {
-      width: 100%;
+      transform: translateX(-100%);
     }
   }
   
-  @keyframes untyping {
-    from {
-      width: 100%;
-    }
-    to {
-      width: 0;
-    }
-  }
-  
-  @keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-  }
-  
-  @keyframes blink {
-    0%, 50% { border-color: transparent; }
-    51%, 100% { border-color: var(--brand-secondary); }
-  }
-  
-  .typing-text {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .typing-text::after {
-    content: '|';
-    position: absolute;
-    right: -8px;
-    color: var(--brand-secondary);
-    animation: blink 1s infinite;
-  }
-  
-  .animate-typing {
-    animation: typing 3s steps(50, end);
-  }
-  
-  .animate-untyping {
-    animation: untyping 1.5s steps(50, end);
+  .animate-slide-text {
+    animation: slideText 15s linear infinite;
   }
 }

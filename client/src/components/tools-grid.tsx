@@ -1,46 +1,40 @@
-import { useEffect, useRef, useState } from "react";
-import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers, FileCode, MessageSquare } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers } from "lucide-react";
 
 interface Tool {
   name: string;
   icon: JSX.Element;
   gradientFrom: string;
   gradientTo: string;
-  id: string;
 }
 
 const tools: Tool[] = [
   // First row - matching your image
   {
-    id: "chatgpt",
-    name: "ChatGPT",
-    icon: <MessageSquare className="w-8 h-8 text-white" />,
-    gradientFrom: "from-green-600",
-    gradientTo: "to-green-700"
+    name: "Corner",
+    icon: <Code className="w-8 h-8 text-white" />,
+    gradientFrom: "from-gray-800",
+    gradientTo: "to-black"
   },
   {
-    id: "whizkdf",
     name: "Whizkdf",
     icon: <Zap className="w-8 h-8 text-white" />,
     gradientFrom: "from-green-500",
     gradientTo: "to-green-600"
   },
   {
-    id: "tree",
     name: "Tree",
     icon: <TreePine className="w-8 h-8 text-white" />,
     gradientFrom: "from-red-500",
     gradientTo: "to-red-600"
   },
   {
-    id: "v0",
     name: "V0",
     icon: <Palette className="w-8 h-8 text-white" />,
     gradientFrom: "from-blue-500",
     gradientTo: "to-blue-600"
   },
   {
-    id: "bolt",
     name: "Bolt",
     icon: <Zap className="w-8 h-8 text-white" />,
     gradientFrom: "from-yellow-500",
@@ -48,35 +42,30 @@ const tools: Tool[] = [
   },
   // Second row
   {
-    id: "lovable",
     name: "Lovable",
     icon: <Heart className="w-8 h-8 text-white" />,
     gradientFrom: "from-green-400",
     gradientTo: "to-green-500"
   },
   {
-    id: "replit",
     name: "Replit",
     icon: <Terminal className="w-8 h-8 text-white" />,
     gradientFrom: "from-orange-500",
     gradientTo: "to-red-500"
   },
   {
-    id: "stark",
     name: "Stark",
     icon: <Square className="w-8 h-8 text-white" />,
     gradientFrom: "from-gray-700",
     gradientTo: "to-gray-900"
   },
   {
-    id: "cursor",
     name: "Cursor",
     icon: <Pointer className="w-8 h-8 text-white" />,
     gradientFrom: "from-blue-400",
     gradientTo: "to-blue-600"
   },
   {
-    id: "rewind",
     name: "Rewind",
     icon: <RefreshCw className="w-8 h-8 text-white" />,
     gradientFrom: "from-gray-300",
@@ -86,19 +75,6 @@ const tools: Tool[] = [
 
 export default function ToolsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
-  const [likedTools, setLikedTools] = useState<Set<string>>(new Set());
-
-  const toggleLike = (toolId: string) => {
-    setLikedTools(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(toolId)) {
-        newSet.delete(toolId);
-      } else {
-        newSet.add(toolId);
-      }
-      return newSet;
-    });
-  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -127,23 +103,9 @@ export default function ToolsGrid() {
   return (
     <div ref={gridRef} className="grid grid-cols-5 gap-8 md:gap-12 mb-16 max-w-2xl mx-auto">
       {tools.map((tool, index) => (
-        <div key={tool.id} className="tool-item flex flex-col items-center group opacity-0">
-          <div className="relative">
-            <div className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${tool.gradientFrom} ${tool.gradientTo} flex items-center justify-center shadow-lg mb-3`}>
-              {tool.icon}
-            </div>
-            <button
-              onClick={() => toggleLike(tool.id)}
-              className={`absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200 transform hover:scale-110 ${
-                likedTools.has(tool.id)
-                  ? 'bg-red-500 text-white shadow-lg'
-                  : 'bg-white/80 text-gray-600 hover:bg-white shadow-md'
-              }`}
-            >
-              <Heart 
-                className={`w-3 h-3 ${likedTools.has(tool.id) ? 'fill-current' : ''}`}
-              />
-            </button>
+        <div key={tool.name} className="tool-item flex flex-col items-center group opacity-0">
+          <div className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${tool.gradientFrom} ${tool.gradientTo} flex items-center justify-center shadow-lg mb-3`}>
+            {tool.icon}
           </div>
           <span className="text-xs md:text-sm font-medium text-[var(--brand-primary)] group-hover:text-[var(--brand-secondary)] transition-colors duration-300 text-center">
             {tool.name}
