@@ -179,7 +179,7 @@ export default function HeroSection() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-6 py-3 font-semibold transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:from-green-500 hover:via-cyan-500 hover:to-blue-600 text-white px-6 py-3 font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 {isSubmitting ? "Submitting..." : "Subscribe"}
               </Button>
