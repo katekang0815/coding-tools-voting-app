@@ -8,11 +8,22 @@ import { useToast } from "@/hooks/use-toast";
 export default function HeroSection() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittedEmails, setSubmittedEmails] = useState<Set<string>>(new Set());
   const { toast } = useToast();
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+
+    // Check for duplicate email
+    if (submittedEmails.has(email.toLowerCase())) {
+      toast({
+        title: "Already Submitted",
+        description: "This email has already been submitted.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setIsSubmitting(true);
     
@@ -25,13 +36,18 @@ export default function HeroSection() {
         mode: "no-cors",
       });
 
+      // Add email to submitted set to prevent duplicates
+      setSubmittedEmails(prev => new Set(prev).add(email.toLowerCase()));
+
       toast({
         title: "Success!",
         description: "Your email has been submitted successfully.",
       });
       setEmail("");
     } catch (error) {
-      // Since we use no-cors mode, we can't read the response, but the request likely went through
+      // Add email to submitted set even on error since request likely went through
+      setSubmittedEmails(prev => new Set(prev).add(email.toLowerCase()));
+      
       toast({
         title: "Submitted!",
         description: "Your email has been submitted. Please check your spreadsheet to confirm.",
@@ -41,6 +57,26 @@ export default function HeroSection() {
       setIsSubmitting(false);
     }
   };
+
+  // Load submitted emails from localStorage on component mount
+  useEffect(() => {
+    const savedEmails = localStorage.getItem('submittedEmails');
+    if (savedEmails) {
+      try {
+        setSubmittedEmails(new Set(JSON.parse(savedEmails)));
+      } catch (error) {
+        // Clear invalid localStorage data
+        localStorage.removeItem('submittedEmails');
+      }
+    }
+  }, []);
+
+  // Save submitted emails to localStorage whenever the set changes
+  useEffect(() => {
+    if (submittedEmails.size > 0) {
+      localStorage.setItem('submittedEmails', JSON.stringify(Array.from(submittedEmails)));
+    }
+  }, [submittedEmails]);
 
   useEffect(() => {
     const texts = [
