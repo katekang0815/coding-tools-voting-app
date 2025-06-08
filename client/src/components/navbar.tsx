@@ -42,7 +42,7 @@ export default function Navbar() {
           <div className="hidden md:block">
             <Button
               size="sm"
-              className="bg-transparent border-2 border-gradient-to-r from-green-400 via-cyan-400 to-blue-500 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:bg-gradient-to-r hover:from-green-400 hover:via-cyan-400 hover:to-blue-500 hover:text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="bg-transparent border border-gradient-to-r from-green-400 via-cyan-400 to-blue-500 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:bg-gradient-to-r hover:from-green-400 hover:via-cyan-400 hover:to-blue-500 hover:text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Get Started
             </Button>
@@ -82,7 +82,7 @@ export default function Navbar() {
               <div className="pt-2">
                 <Button
                   size="sm"
-                  className="w-full bg-transparent border-2 border-gradient-to-r from-green-400 via-cyan-400 to-blue-500 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:bg-gradient-to-r hover:from-green-400 hover:via-cyan-400 hover:to-blue-500 hover:text-white font-semibold"
+                  className="w-full bg-transparent border border-gradient-to-r from-green-400 via-cyan-400 to-blue-500 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:bg-gradient-to-r hover:from-green-400 hover:via-cyan-400 hover:to-blue-500 hover:text-white font-semibold"
                 >
                   Get Started
                 </Button>
