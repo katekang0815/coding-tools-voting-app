@@ -85,14 +85,14 @@ export default function HeroSection() {
               Subscribe to get the latest updates on coding tools and developer
               resources.
             </p>
-            <div className="relative max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex h-12 w-full rounded-md border border-input bg-background pl-3 pr-24 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
               <Button
-                className="absolute right-1 top-1 bottom-1 bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-4 text-sm font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg rounded-md"
+                className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-6 py-2 text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
                 onClick={() => alert("Subscription agreement sent!")}
               >
                 Subscribe
