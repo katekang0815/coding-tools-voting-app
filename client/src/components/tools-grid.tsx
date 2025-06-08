@@ -19,19 +19,19 @@ const toolDisplayConfig: ToolDisplay[] = [
     gradientTo: "to-green-700"
   },
   {
-    name: "Whizkdf",
+    name: "Copilot",
     icon: <Zap className="w-8 h-8 text-white" />,
     gradientFrom: "from-green-500",
     gradientTo: "to-green-600"
   },
   {
-    name: "Tree",
+    name: "Canva",
     icon: <TreePine className="w-8 h-8 text-white" />,
     gradientFrom: "from-red-500",
     gradientTo: "to-red-600"
   },
   {
-    name: "V0",
+    name: "Claude",
     icon: <Palette className="w-8 h-8 text-white" />,
     gradientFrom: "from-blue-500",
     gradientTo: "to-blue-600"
@@ -55,7 +55,7 @@ const toolDisplayConfig: ToolDisplay[] = [
     gradientTo: "to-red-500"
   },
   {
-    name: "Stark",
+    name: "Figma",
     icon: <Square className="w-8 h-8 text-white" />,
     gradientFrom: "from-gray-700",
     gradientTo: "to-gray-900"
