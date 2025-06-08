@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ToolsGrid from "@/components/tools-grid";
@@ -8,6 +8,42 @@ export default function HeroSection() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  
+  // Animation states
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+  const [isUntyping, setIsUntyping] = useState(false);
+  
+  const messages = [
+    "Vote for it!",
+    "What AI Agent do you use most?"
+  ];
+
+  useEffect(() => {
+    const typingDuration = 3000; // Time for typing animation
+    const pauseDuration = 1500; // Pause before reverse typing
+    const untypingDuration = 1500; // Time for reverse typing animation
+    const switchDuration = 500; // Time to switch to next message
+
+    const interval = setInterval(() => {
+      if (isTyping && !isUntyping) {
+        // After typing is done, pause then start untyping
+        setTimeout(() => {
+          setIsUntyping(true);
+          setIsTyping(false);
+        }, pauseDuration);
+      } else if (isUntyping && !isTyping) {
+        // After untyping, switch message and start typing again
+        setTimeout(() => {
+          setCurrentMessageIndex((prev) => (prev + 1) % messages.length);
+          setIsUntyping(false);
+          setIsTyping(true);
+        }, switchDuration);
+      }
+    }, typingDuration + pauseDuration + untypingDuration + switchDuration);
+
+    return () => clearInterval(interval);
+  }, [isTyping, isUntyping, messages.length]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,9 +99,11 @@ export default function HeroSection() {
             Vibe Coding
             <span className="text-[var(--brand-secondary)]"> Tools</span>
           </h1>
-          <div className="overflow-hidden mb-8 max-w-4xl mx-auto">
-            <div className="animate-slide-text text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed whitespace-nowrap">
-              Discover today's most innovative coding experiences! &nbsp;&nbsp;&nbsp;&nbsp; What AI Agent do you use most? Vote for it! &nbsp;&nbsp;&nbsp;&nbsp; Discover today's most innovative coding experiences! &nbsp;&nbsp;&nbsp;&nbsp; What AI Agent do you use most? Vote for it! &nbsp;&nbsp;&nbsp;&nbsp;
+          <div className="mb-8 max-w-4xl mx-auto">
+            <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed min-h-[2rem] flex items-center justify-center">
+              <span className="typing-text">
+                Discover today's most innovative coding experiences! {messages[currentMessageIndex]}
+              </span>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -91,28 +129,6 @@ export default function HeroSection() {
         {/* Call to Action */}
         <Card className="shadow-xl max-w-4xl mx-auto">
           <CardContent className="p-8 md:p-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[var(--brand-primary)] mb-6">
-              Ready to Level Up Your Coding?
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Join thousands of developers who are already using these cutting-edge tools to build the next generation of applications.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button 
-                size="lg"
-                className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                Get Started Free
-              </Button>
-              <Button 
-                variant="outline"
-                size="lg"
-                className="border-2 border-gray-300 text-gray-700 hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)] dark:border-gray-600 dark:text-gray-300 dark:hover:border-[var(--brand-primary)] dark:hover:text-[var(--brand-primary)] px-8 py-4 text-lg font-semibold transition-all duration-300"
-              >
-                View Documentation
-              </Button>
-            </div>
-            
             {/* Email Subscription */}
             <div className="border-t pt-8">
               <h3 className="text-xl font-semibold text-[var(--brand-primary)] mb-4">
