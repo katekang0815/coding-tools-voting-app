@@ -11,7 +11,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(tools);
     } catch (error) {
       console.error("Error fetching tools:", error);
-      res.status(500).json({ message: "Failed to fetch tools" });
+      if (error.message === "Database not available") {
+        // Return mock data when database is not available
+        const mockTools = [
+          { id: 1, name: "ChatGPT", likeCount: 0 },
+          { id: 2, name: "Claude", likeCount: 0 },
+          { id: 3, name: "Cursor", likeCount: 0 },
+          { id: 4, name: "V0", likeCount: 0 },
+          { id: 5, name: "Bolt", likeCount: 0 }
+        ];
+        res.json(mockTools);
+      } else {
+        res.status(500).json({ message: "Failed to fetch tools" });
+      }
     }
   });
 
@@ -29,7 +41,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(tool);
     } catch (error) {
       console.error("Error creating tool:", error);
-      res.status(500).json({ message: "Failed to create tool" });
+      if (error.message === "Database not available") {
+        res.status(503).json({ message: "Database temporarily unavailable" });
+      } else {
+        res.status(500).json({ message: "Failed to create tool" });
+      }
     }
   });
 
@@ -47,7 +63,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(result);
     } catch (error) {
       console.error("Error toggling tool like:", error);
-      res.status(500).json({ message: "Failed to toggle like" });
+      if (error.message === "Database not available") {
+        res.status(503).json({ message: "Database temporarily unavailable" });
+      } else {
+        res.status(500).json({ message: "Failed to toggle like" });
+      }
     }
   });
 
@@ -70,7 +90,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(userLikes);
     } catch (error) {
       console.error("Error fetching user likes:", error);
-      res.status(500).json({ message: "Failed to fetch user likes" });
+      if (error.message === "Database not available") {
+        res.json([]); // Return empty array when database is not available
+      } else {
+        res.status(500).json({ message: "Failed to fetch user likes" });
+      }
     }
   });
 
