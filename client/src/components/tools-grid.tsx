@@ -171,6 +171,9 @@ export default function ToolsGrid() {
   useEffect(() => {
     // Simple animation trigger when tools are loaded
     if (tools.length > 0 && gridRef.current) {
+      // Add glow animation to grid
+      gridRef.current.classList.add("glow-animation");
+      
       const toolElements = gridRef.current.querySelectorAll(".tool-item");
       toolElements.forEach((tool, index) => {
         setTimeout(() => {
@@ -208,9 +211,6 @@ export default function ToolsGrid() {
     <div
       ref={gridRef}
       className="grid grid-cols-4 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10 m-20 p-20 rounded-2xl bg-gray-900"
-      style={{
-        boxShadow: '0 0 20px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.15), 0 0 80px rgba(59, 130, 246, 0.1)'
-      }}
     >
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
