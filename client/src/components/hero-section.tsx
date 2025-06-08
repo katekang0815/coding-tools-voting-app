@@ -130,7 +130,7 @@ export default function HeroSection() {
 
   return (
     <section className="hero-gradient min-h-screen flex items-center justify-center px-4 py-16 pt-24">
-      <div className="max-w-6xl mx-auto text-center">
+      <div className="max-w-6xl mx-auto text-center relative z-10">
         {/* Hero Content */}
         <div className="mb-16">
           <h1 className="text-5xl md:text-7xl font-bold gradient-text mb-6 leading-tight">
