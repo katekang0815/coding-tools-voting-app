@@ -37,12 +37,6 @@ const toolDisplayConfig: ToolDisplay[] = [
     gradientTo: "to-blue-600"
   },
   {
-    name: "Bolt",
-    icon: <Zap className="w-8 h-8 text-white" />,
-    gradientFrom: "from-yellow-500",
-    gradientTo: "to-orange-500"
-  },
-  {
     name: "Lovable",
     icon: <Heart className="w-8 h-8 text-white" />,
     gradientFrom: "from-green-400",
