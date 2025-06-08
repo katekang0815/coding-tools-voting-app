@@ -75,7 +75,19 @@
 
 @layer components {
   .hero-gradient {
-    background: linear-gradient(135deg, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
+    background: #0a0a0a;
+    background-image: 
+      radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.1) 2px, transparent 0),
+      radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.1) 2px, transparent 0);
+    background-size: 50px 50px;
+    background-position: 0 0, 25px 25px;
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #4ade80 0%, #06b6d4 50%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
   .tool-icon {

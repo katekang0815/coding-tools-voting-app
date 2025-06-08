@@ -133,33 +133,18 @@ export default function HeroSection() {
       <div className="max-w-6xl mx-auto text-center">
         {/* Hero Content */}
         <div className="mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold text-[var(--brand-primary)] mb-6 leading-tight">
-            Vibe Coding
-            <span className="text-[var(--brand-secondary)]"> Tools</span>
+          <h1 className="text-5xl md:text-7xl font-bold gradient-text mb-6 leading-tight">
+            Vibe Coding Tools
           </h1>
           <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
-            <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed">
+            <div className="text-xl md:text-2xl text-gray-300 leading-relaxed">
               <span id="typing-text"></span>
               <span className="animate-blink">|</span>
             </div>
           </div>
+          {/* Tools Grid */}
+          <ToolsGrid />
           <div className="flex flex-col gap-6 items-center">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                size="lg"
-                className="bg-[var(--brand-secondary)] hover:bg-[hsl(244,79%,52%)] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                Explore Tools
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-2 border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300"
-              >
-                Learn More
-              </Button>
-            </div>
-
             {/* Email Subscription Form */}
             <form
               onSubmit={handleEmailSubmit}
@@ -183,9 +168,6 @@ export default function HeroSection() {
             </form>
           </div>
         </div>
-
-        {/* Tools Grid */}
-        <ToolsGrid />
       </div>
     </section>
   );
