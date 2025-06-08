@@ -8,7 +8,9 @@ import { useToast } from "@/hooks/use-toast";
 export default function HeroSection() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submittedEmails, setSubmittedEmails] = useState<Set<string>>(new Set());
+  const [submittedEmails, setSubmittedEmails] = useState<Set<string>>(
+    new Set(),
+  );
   const { toast } = useToast();
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
@@ -26,18 +28,18 @@ export default function HeroSection() {
     }
 
     setIsSubmitting(true);
-    
+
     try {
       // Use GET method with query parameters - most reliable for Google Apps Script
       const url = `https://script.google.com/macros/s/AKfycbwmqGk8EgDszcoukq2WTr5RDP2UvcDgCpd7pdAstS4DshIzD15djubo1rWSoKBb3Zix/exec?email=${encodeURIComponent(email)}`;
-      
+
       const response = await fetch(url, {
         method: "GET",
         mode: "no-cors",
       });
 
       // Add email to submitted set to prevent duplicates
-      setSubmittedEmails(prev => new Set(prev).add(email.toLowerCase()));
+      setSubmittedEmails((prev) => new Set(prev).add(email.toLowerCase()));
 
       toast({
         title: "Success!",
@@ -46,11 +48,12 @@ export default function HeroSection() {
       setEmail("");
     } catch (error) {
       // Add email to submitted set even on error since request likely went through
-      setSubmittedEmails(prev => new Set(prev).add(email.toLowerCase()));
-      
+      setSubmittedEmails((prev) => new Set(prev).add(email.toLowerCase()));
+
       toast({
         title: "Submitted!",
-        description: "Your email has been submitted. Please check your spreadsheet to confirm.",
+        description:
+          "Your email has been submitted. Please check your spreadsheet to confirm.",
       });
       setEmail("");
     } finally {
@@ -60,13 +63,13 @@ export default function HeroSection() {
 
   // Load submitted emails from localStorage on component mount
   useEffect(() => {
-    const savedEmails = localStorage.getItem('submittedEmails');
+    const savedEmails = localStorage.getItem("submittedEmails");
     if (savedEmails) {
       try {
         setSubmittedEmails(new Set(JSON.parse(savedEmails)));
       } catch (error) {
         // Clear invalid localStorage data
-        localStorage.removeItem('submittedEmails');
+        localStorage.removeItem("submittedEmails");
       }
     }
   }, []);
@@ -74,31 +77,37 @@ export default function HeroSection() {
   // Save submitted emails to localStorage whenever the set changes
   useEffect(() => {
     if (submittedEmails.size > 0) {
-      localStorage.setItem('submittedEmails', JSON.stringify(Array.from(submittedEmails)));
+      localStorage.setItem(
+        "submittedEmails",
+        JSON.stringify(Array.from(submittedEmails)),
+      );
     }
   }, [submittedEmails]);
 
   useEffect(() => {
-    const texts = [
-      "What AI Agent do you use most?",
-      "Vote for it!"
-    ];
-    
+    const texts = ["What AI Agent do you use most?", "Vote for it!"];
+
     let currentTextIndex = 0;
     let currentCharIndex = 0;
     let isDeleting = false;
-    const typingElement = document.getElementById('typing-text');
-    
+    const typingElement = document.getElementById("typing-text");
+
     if (!typingElement) return;
 
     function typeText() {
       const currentText = texts[currentTextIndex];
-      
+
       if (isDeleting) {
-        typingElement!.textContent = currentText.substring(0, currentCharIndex - 1);
+        typingElement!.textContent = currentText.substring(
+          0,
+          currentCharIndex - 1,
+        );
         currentCharIndex--;
       } else {
-        typingElement!.textContent = currentText.substring(0, currentCharIndex + 1);
+        typingElement!.textContent = currentText.substring(
+          0,
+          currentCharIndex + 1,
+        );
         currentCharIndex++;
       }
 
@@ -136,13 +145,13 @@ export default function HeroSection() {
           </div>
           <div className="flex flex-col gap-6 items-center">
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
+              <Button
                 size="lg"
                 className="bg-[var(--brand-secondary)] hover:bg-[hsl(244,79%,52%)] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 Explore Tools
               </Button>
-              <Button 
+              <Button
                 variant="outline"
                 size="lg"
                 className="border-2 border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300"
@@ -150,9 +159,12 @@ export default function HeroSection() {
                 Learn More
               </Button>
             </div>
-            
+
             {/* Email Subscription Form */}
-            <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md w-full">
+            <form
+              onSubmit={handleEmailSubmit}
+              className="flex flex-col sm:flex-row gap-3 max-w-md w-full"
+            >
               <Input
                 type="email"
                 placeholder="Enter your email to stay updated"
@@ -161,7 +173,7 @@ export default function HeroSection() {
                 className="flex-1 px-4 py-3 text-base"
                 required
               />
-              <Button 
+              <Button
                 type="submit"
                 disabled={isSubmitting}
                 className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-6 py-3 font-semibold transition-all duration-300 transform hover:scale-105"
@@ -174,31 +186,6 @@ export default function HeroSection() {
 
         {/* Tools Grid */}
         <ToolsGrid />
-
-        {/* Email Subscription */}
-        <Card className="shadow-xl w-full">
-          <CardContent className="p-6 md:p-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-[var(--brand-primary)] mb-4">
-              Stay Updated
-            </h2>
-            <p className="text-base text-gray-600 dark:text-gray-300 mb-6">
-              Subscribe to get the latest updates on coding tools and developer resources.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              />
-              <Button 
-                className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-6 py-2 text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
-                onClick={() => alert('Subscription agreement sent!')}
-              >
-                Subscribe
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </section>
   );
