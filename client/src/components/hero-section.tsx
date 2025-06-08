@@ -143,10 +143,10 @@ export default function HeroSection() {
             </div>
           </div>
           {/* Tools Grid */}
-          <div className="tools-grid-container max-w-4xl relative z-10">
+  
             <ToolsGrid />
-          </div>
-          <div className="flex flex-col gap-6 items-center">
+       
+          <div className="flex flex-col gap-6 items-center m-16">
             {/* Email Subscription Form */}
             <form
               onSubmit={handleEmailSubmit}
