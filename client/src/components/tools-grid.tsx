@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers } from "lucide-react";
+import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers, MessageSquare } from "lucide-react";
 
 interface Tool {
   name: string;
@@ -11,10 +11,10 @@ interface Tool {
 const tools: Tool[] = [
   // First row - matching your image
   {
-    name: "Corner",
-    icon: <Code className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-800",
-    gradientTo: "to-black"
+    name: "ChatGPT",
+    icon: <MessageSquare className="w-8 h-8 text-white" />,
+    gradientFrom: "from-green-600",
+    gradientTo: "to-green-700"
   },
   {
     name: "Whizkdf",
