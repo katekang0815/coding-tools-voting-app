@@ -12,7 +12,6 @@ interface ToolDisplay {
 }
 
 const toolDisplayConfig: ToolDisplay[] = [
-  // First row - matching your image
   {
     name: "ChatGPT",
     icon: <MessageSquare className="w-8 h-8 text-white" />,
@@ -43,7 +42,6 @@ const toolDisplayConfig: ToolDisplay[] = [
     gradientFrom: "from-yellow-500",
     gradientTo: "to-orange-500"
   },
-  // Second row
   {
     name: "Lovable",
     icon: <Heart className="w-8 h-8 text-white" />,
@@ -79,7 +77,7 @@ const toolDisplayConfig: ToolDisplay[] = [
 export default function ToolsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
-  const [currentUserId] = useState(1); // For demo purposes - in real app this would come from auth
+  const [currentUserId] = useState(1); // Using the test user we created
 
   // Fetch tools from database
   const { data: tools = [], isLoading } = useQuery<Tool[]>({
@@ -95,10 +93,8 @@ export default function ToolsGrid() {
   // Like toggle mutation
   const likeMutation = useMutation({
     mutationFn: async (toolId: number) => {
-      return await apiRequest(`/api/tools/${toolId}/like`, {
-        method: "POST",
-        body: JSON.stringify({ userId: currentUserId }),
-        headers: { "Content-Type": "application/json" },
+      return await apiRequest(`/api/tools/${toolId}/like`, "POST", {
+        userId: currentUserId,
       });
     },
     onSuccess: () => {
@@ -110,18 +106,19 @@ export default function ToolsGrid() {
   // Seed tools on first load
   const seedMutation = useMutation({
     mutationFn: async (toolName: string) => {
-      return await apiRequest("/api/tools", {
-        method: "POST",
-        body: JSON.stringify({ name: toolName }),
-        headers: { "Content-Type": "application/json" },
+      return await apiRequest("/api/tools", "POST", {
+        name: toolName,
       });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/tools"] });
     },
   });
 
   // Seed tools if they don't exist
   useEffect(() => {
     if (tools.length === 0 && !isLoading) {
-      toolDisplayConfig.forEach(tool => {
+      toolDisplayConfig.forEach((tool) => {
         seedMutation.mutate(tool.name);
       });
     }
@@ -136,7 +133,7 @@ export default function ToolsGrid() {
       name: toolName,
       icon: <Circle className="w-8 h-8 text-white" />,
       gradientFrom: "from-gray-500",
-      gradientTo: "from-gray-600"
+      gradientTo: "to-gray-600"
     };
   };
 
@@ -168,35 +165,59 @@ export default function ToolsGrid() {
     return () => observer.disconnect();
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-5 gap-8 md:gap-12 mb-16 max-w-2xl mx-auto">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <div key={index} className="flex flex-col items-center">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-200 animate-pulse mb-3"></div>
+            <div className="w-12 h-3 bg-gray-200 animate-pulse rounded"></div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div ref={gridRef} className="grid grid-cols-5 gap-8 md:gap-12 mb-16 max-w-2xl mx-auto">
-      {tools.map((tool, index) => (
-        <div key={tool.name} className="tool-item flex flex-col items-center group opacity-0">
-          <div className="relative">
-            <div className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${tool.gradientFrom} ${tool.gradientTo} flex items-center justify-center shadow-lg mb-3`}>
-              {tool.icon}
+      {tools.map((tool) => {
+        const displayConfig = getToolDisplayConfig(tool.name);
+        const isLiked = isToolLiked(tool.id);
+        
+        return (
+          <div key={tool.name} className="tool-item flex flex-col items-center group opacity-0">
+            <div className="relative">
+              <div className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${displayConfig.gradientFrom} ${displayConfig.gradientTo} flex items-center justify-center shadow-lg mb-3`}>
+                {displayConfig.icon}
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleLike(tool.id);
+                }}
+                disabled={likeMutation.isPending}
+                className={`absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 ${
+                  isLiked
+                    ? 'bg-red-500 text-white shadow-lg'
+                    : 'bg-white text-gray-400 hover:text-red-500 shadow-md border border-gray-200'
+                }`}
+              >
+                <Heart 
+                  className={`w-3 h-3 ${isLiked ? 'fill-current' : ''}`}
+                />
+              </button>
+              {tool.likeCount > 0 && (
+                <div className="absolute -bottom-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  {tool.likeCount}
+                </div>
+              )}
             </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleLike(tool.name);
-              }}
-              className={`absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 ${
-                likedTools.has(tool.name)
-                  ? 'bg-red-500 text-white shadow-lg'
-                  : 'bg-white text-gray-400 hover:text-red-500 shadow-md border border-gray-200'
-              }`}
-            >
-              <Heart 
-                className={`w-3 h-3 ${likedTools.has(tool.name) ? 'fill-current' : ''}`}
-              />
-            </button>
+            <span className="text-xs md:text-sm font-medium text-[var(--brand-primary)] group-hover:text-[var(--brand-secondary)] transition-colors duration-300 text-center">
+              {tool.name}
+            </span>
           </div>
-          <span className="text-xs md:text-sm font-medium text-[var(--brand-primary)] group-hover:text-[var(--brand-secondary)] transition-colors duration-300 text-center">
-            {tool.name}
-          </span>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
