@@ -1,9 +1,48 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import ToolsGrid from "@/components/tools-grid";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function HeroSection() {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbw2DQJv8ntVpkUgWOlWUhclnqvdqsnSnBrKG4loD3WqR3WCYvAZQJmGtkQSK2qu41UD/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          email: email,
+        }),
+      });
+
+      toast({
+        title: "Success!",
+        description: "Your email has been submitted successfully.",
+      });
+      setEmail("");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit email. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   useEffect(() => {
     const texts = [
       "What AI Agent do you use most?",
@@ -21,10 +60,10 @@ export default function HeroSection() {
       const currentText = texts[currentTextIndex];
       
       if (isDeleting) {
-        typingElement.textContent = currentText.substring(0, currentCharIndex - 1);
+        typingElement!.textContent = currentText.substring(0, currentCharIndex - 1);
         currentCharIndex--;
       } else {
-        typingElement.textContent = currentText.substring(0, currentCharIndex + 1);
+        typingElement!.textContent = currentText.substring(0, currentCharIndex + 1);
         currentCharIndex++;
       }
 
@@ -60,20 +99,41 @@ export default function HeroSection() {
               <span className="animate-blink">|</span>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
-              size="lg"
-              className="bg-[var(--brand-secondary)] hover:bg-[hsl(244,79%,52%)] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              Explore Tools
-            </Button>
-            <Button 
-              variant="outline"
-              size="lg"
-              className="border-2 border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300"
-            >
-              Learn More
-            </Button>
+          <div className="flex flex-col gap-6 items-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button 
+                size="lg"
+                className="bg-[var(--brand-secondary)] hover:bg-[hsl(244,79%,52%)] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                Explore Tools
+              </Button>
+              <Button 
+                variant="outline"
+                size="lg"
+                className="border-2 border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300"
+              >
+                Learn More
+              </Button>
+            </div>
+            
+            {/* Email Subscription Form */}
+            <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md w-full">
+              <Input
+                type="email"
+                placeholder="Enter your email to stay updated"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 px-4 py-3 text-base"
+                required
+              />
+              <Button 
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-6 py-3 font-semibold transition-all duration-300 transform hover:scale-105"
+              >
+                {isSubmitting ? "Submitting..." : "Subscribe"}
+              </Button>
+            </form>
           </div>
         </div>
 
