@@ -209,7 +209,7 @@ export default function ToolsGrid() {
       ref={gridRef}
       className="grid grid-cols-4 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10 m-20 p-20 rounded-2xl bg-gray-900"
       style={{
-        boxShadow: '0 0 50px rgba(59, 130, 246, 0.4), 0 0 100px rgba(59, 130, 246, 0.3), 0 0 200px rgba(59, 130, 246, 0.2)'
+        boxShadow: '0 0 20px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.15), 0 0 80px rgba(59, 130, 246, 0.1)'
       }}
     >
       {sortedTools.map((tool) => {
