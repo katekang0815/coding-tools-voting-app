@@ -129,7 +129,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="hero-gradient min-h-screen flex items-center justify-center px-4 py-16">
+    <section className="hero-gradient min-h-screen flex items-center justify-center px-4 py-16 pt-24">
       <div className="max-w-6xl mx-auto text-center">
         {/* Hero Content */}
         <div className="mb-16">
