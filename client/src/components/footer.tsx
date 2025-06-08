@@ -47,11 +47,11 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <h2 className="text-2xl font-bold text-[var(--brand-primary)]">
-                Vibe Coding <span className="text-[var(--brand-secondary)]">Tools</span>
+              <h2 className="text-2xl font-bold text-white">
+                Vibe Coding <span className="gradient-text">Tools</span>
               </h2>
             </div>
-            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
+            <p className="text-gray-400 mb-6 max-w-md">
               Discover and vote for the best coding tools that make development more enjoyable and productive. Join our community of developers.
             </p>
             
@@ -61,7 +61,7 @@ export default function Footer() {
                 <a
                   key={social.name}
                   href={social.href}
-                  className="text-gray-400 hover:text-[var(--brand-secondary)] transition-colors duration-200"
+                  className="text-gray-400 hover:text-cyan-400 transition-colors duration-200"
                   aria-label={social.name}
                 >
                   <social.icon className="h-6 w-6" />
@@ -73,7 +73,7 @@ export default function Footer() {
           {/* Footer Links */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
                 {section.title}
               </h3>
               <ul className="space-y-3">
@@ -81,7 +81,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="text-gray-600 dark:text-gray-400 hover:text-[var(--brand-secondary)] transition-colors duration-200 text-sm"
+                      className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
                     >
                       {link.name}
                     </a>
@@ -93,14 +93,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center text-sm text-gray-400">
               <span>Made with</span>
               <Heart className="h-4 w-4 text-red-500 mx-1 fill-current" />
               <span>by developers, for developers</span>
             </div>
-            <div className="mt-4 md:mt-0 text-sm text-gray-600 dark:text-gray-400">
+            <div className="mt-4 md:mt-0 text-sm text-gray-400">
               © {currentYear} Vibe Coding Tools. All rights reserved.
             </div>
           </div>
