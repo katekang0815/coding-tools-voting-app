@@ -163,7 +163,7 @@ export default function HeroSection() {
                   placeholder="Enter your email to stay updated"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 text-base bg-gray-800/50 border-gray-600/50 text-white placeholder-gray-400 rounded-lg focus:border-blue-400 focus:ring-blue-400"
+                  className="w-full pl-12 pr-4 py-3 text-base bg-gray-800/50 border-gray-600/50 text-white placeholder-gray-300 rounded-lg focus:border-blue-400 focus:ring-blue-400"
                   required
                 />
               </div>
