@@ -142,7 +142,6 @@
     color: var(--brand-secondary);
     animation: blink 1s infinite;
   }
-  }
   
   .animate-typing {
     animation: typing 3s steps(50, end);
@@ -151,3 +150,4 @@
   .animate-untyping {
     animation: untyping 1.5s steps(50, end);
   }
+}
