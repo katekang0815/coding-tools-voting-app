@@ -13,13 +13,13 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold text-[var(--brand-primary)]">
-              Vibe Coding <span className="text-[var(--brand-secondary)]">Tools</span>
+            <h1 className="text-xl font-bold text-white bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+              Redesign Tools
             </h1>
           </div>
 
@@ -30,7 +30,7 @@ export default function Navbar() {
                 <a
                   key={category.name}
                   href={category.href}
-                  className="text-gray-700 dark:text-gray-300 hover:text-[var(--brand-secondary)] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="text-gray-300 hover:text-green-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                 >
                   {category.name}
                 </a>
