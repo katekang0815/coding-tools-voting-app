@@ -23,7 +23,7 @@
   --destructive-foreground: hsl(60, 9.1%, 97.8%);
   --ring: hsl(20, 14.3%, 4.1%);
   --radius: 0.5rem;
-  
+
   /* Custom hero colors */
   --brand-primary: hsl(210, 22%, 21%);
   --brand-secondary: hsl(244, 79%, 62%);
@@ -53,7 +53,7 @@
   --destructive-foreground: hsl(0, 0%, 98%);
   --ring: hsl(240, 4.9%, 83.9%);
   --radius: 0.5rem;
-  
+
   /* Custom hero colors for dark mode */
   --brand-primary: hsl(0, 0%, 98%);
   --brand-secondary: hsl(244, 79%, 62%);
@@ -75,12 +75,7 @@
 
 @layer components {
   .hero-gradient {
-    background: #0a0a0a;
-    background-image: 
-      radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.1) 2px, transparent 0),
-      radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.1) 2px, transparent 0);
-    background-size: 50px 50px;
-    background-position: 0 0, 25px 25px;
+    background: #000000;
   }
 
   .tools-grid-container {
@@ -113,16 +108,16 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .tool-icon {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .tool-icon:hover {
     transform: scale(1.1);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   }
-  
+
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -133,11 +128,11 @@
       transform: translateY(0);
     }
   }
-  
+
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out forwards;
   }
-  
+
   @keyframes slideText {
     from {
       transform: translateX(100%);
@@ -146,11 +141,11 @@
       transform: translateX(-100%);
     }
   }
-  
+
   .animate-slide-text {
     animation: slideText 15s linear infinite;
   }
-  
+
   @keyframes blink {
     0%, 50% {
       opacity: 1;
@@ -159,7 +154,7 @@
       opacity: 0;
     }
   }
-  
+
   .animate-blink {
     animation: blink 1s infinite;
   }
@@ -172,7 +167,7 @@
       box-shadow: 0 0 20px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.15), 0 0 80px rgba(59, 130, 246, 0.1);
     }
   }
-  
+
   .glow-animation {
     animation: glowIn 2s ease-out forwards;
   }
