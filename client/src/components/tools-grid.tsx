@@ -116,13 +116,16 @@ export default function ToolsGrid() {
   });
 
   // Seed tools if they don't exist
+  const [seeded, setSeeded] = useState(false);
+  
   useEffect(() => {
-    if (tools.length === 0 && !isLoading) {
+    if (tools.length === 0 && !isLoading && !seeded) {
+      setSeeded(true);
       toolDisplayConfig.forEach((tool) => {
         seedMutation.mutate(tool.name);
       });
     }
-  }, [tools.length, isLoading]);
+  }, [tools.length, isLoading, seeded, seedMutation]);
 
   const handleLike = (toolId: number) => {
     likeMutation.mutate(toolId);
