@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers } from "lucide-react";
+import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers, FileCode } from "lucide-react";
 
 interface Tool {
   name: string;

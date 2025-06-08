@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 export default function HeroSection() {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
+  const [isUntyping, setIsUntyping] = useState(false);
   
   const messages = [
     "Vote for it!",
@@ -14,15 +15,20 @@ export default function HeroSection() {
 
   useEffect(() => {
     const typingDuration = 3000; // Time for typing animation
-    const pauseDuration = 2000; // Pause before switching messages
+    const pauseDuration = 1500; // Pause before reverse typing
+    const untypingDuration = 1500; // Time for reverse typing animation
     
     const timer = setTimeout(() => {
       setIsTyping(false);
       setTimeout(() => {
-        setCurrentMessageIndex((prev) => (prev + 1) % messages.length);
-        setIsTyping(true);
-      }, 500); // Brief pause before starting next message
-    }, typingDuration + pauseDuration);
+        setIsUntyping(true);
+        setTimeout(() => {
+          setIsUntyping(false);
+          setCurrentMessageIndex((prev) => (prev + 1) % messages.length);
+          setIsTyping(true);
+        }, untypingDuration);
+      }, pauseDuration);
+    }, typingDuration);
 
     return () => clearTimeout(timer);
   }, [currentMessageIndex, messages.length]);
@@ -40,7 +46,10 @@ export default function HeroSection() {
             <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed h-16 flex items-center justify-center">
               <span 
                 key={currentMessageIndex}
-                className={`overflow-hidden whitespace-nowrap border-r-4 border-[var(--brand-accent)] ${isTyping ? 'animate-typing' : ''}`}
+                className={`overflow-hidden whitespace-nowrap ${
+                  isTyping ? 'animate-typing' : 
+                  isUntyping ? 'animate-untyping' : ''
+                }`}
               >
                 {messages[currentMessageIndex]}
               </span>

@@ -111,13 +111,20 @@
     }
   }
   
-  @keyframes blink {
-    50% {
-      border-color: transparent;
+  @keyframes untyping {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0;
     }
   }
   
   .animate-typing {
-    animation: typing 3s steps(50, end), blink 1s infinite;
+    animation: typing 3s steps(50, end);
+  }
+  
+  .animate-untyping {
+    animation: untyping 1.5s steps(50, end);
   }
 }
