@@ -69,8 +69,8 @@ const toolDisplayConfig: ToolDisplay[] = [
   {
     name: "Windsurf",
     icon: <Wind className="w-8 h-8 text-white" />,
-    gradientFrom: "from-blue-400",
-    gradientTo: "to-blue-600"
+    gradientFrom: "from-cyan-400",
+    gradientTo: "to-blue-500"
   }
 ];
 
