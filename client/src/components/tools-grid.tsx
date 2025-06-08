@@ -80,7 +80,7 @@ export default function ToolsGrid() {
   const [currentUserId] = useState(1); // Using the test user we created
 
   // Fetch tools from database
-  const { data: tools = [], isLoading } = useQuery<Tool[]>({
+  const { data: tools = [], isLoading, error } = useQuery<Tool[]>({
     queryKey: ["/api/tools"],
   });
 
@@ -89,6 +89,9 @@ export default function ToolsGrid() {
     queryKey: ["/api/tools/likes", currentUserId],
     enabled: !!currentUserId,
   });
+
+  // Debug logging
+  console.log("ToolsGrid Debug:", { tools, isLoading, error, toolsLength: tools.length });
 
   // Like toggle mutation
   const likeMutation = useMutation({
