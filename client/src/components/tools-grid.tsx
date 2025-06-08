@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers } from "lucide-react";
 
 interface Tool {
@@ -75,6 +75,19 @@ const tools: Tool[] = [
 
 export default function ToolsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
+  const [likedTools, setLikedTools] = useState<Set<string>>(new Set());
+
+  const toggleLike = (toolName: string) => {
+    setLikedTools(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(toolName)) {
+        newSet.delete(toolName);
+      } else {
+        newSet.add(toolName);
+      }
+      return newSet;
+    });
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -104,8 +117,25 @@ export default function ToolsGrid() {
     <div ref={gridRef} className="grid grid-cols-5 gap-8 md:gap-12 mb-16 max-w-2xl mx-auto">
       {tools.map((tool, index) => (
         <div key={tool.name} className="tool-item flex flex-col items-center group opacity-0">
-          <div className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${tool.gradientFrom} ${tool.gradientTo} flex items-center justify-center shadow-lg mb-3`}>
-            {tool.icon}
+          <div className="relative">
+            <div className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${tool.gradientFrom} ${tool.gradientTo} flex items-center justify-center shadow-lg mb-3`}>
+              {tool.icon}
+            </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleLike(tool.name);
+              }}
+              className={`absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 ${
+                likedTools.has(tool.name)
+                  ? 'bg-red-500 text-white shadow-lg'
+                  : 'bg-white text-gray-400 hover:text-red-500 shadow-md border border-gray-200'
+              }`}
+            >
+              <Heart 
+                className={`w-3 h-3 ${likedTools.has(tool.name) ? 'fill-current' : ''}`}
+              />
+            </button>
           </div>
           <span className="text-xs md:text-sm font-medium text-[var(--brand-primary)] group-hover:text-[var(--brand-secondary)] transition-colors duration-300 text-center">
             {tool.name}
