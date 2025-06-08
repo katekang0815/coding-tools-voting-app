@@ -207,7 +207,7 @@ export default function ToolsGrid() {
   return (
     <div
       ref={gridRef}
-      className="tools-grid-container grid grid-cols-4 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10 text-slate-200"
+      className="grid grid-cols-4 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10 m-20 p-20 rounded-2xl bg-gray-900 text-slate-200 shadow-2xl"
     >
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
