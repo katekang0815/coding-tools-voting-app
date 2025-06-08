@@ -137,7 +137,7 @@ export default function HeroSection() {
             Vibe Coding Tools
           </h1>
           <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
-            <div className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+            <div className="text-xl md:text-2xl text-blue-400 leading-relaxed">
               <span id="typing-text"></span>
               <span className="animate-blink">|</span>
             </div>
