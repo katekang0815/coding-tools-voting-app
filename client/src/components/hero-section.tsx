@@ -141,7 +141,7 @@ export default function HeroSection() {
         <ToolsGrid />
 
         {/* Email Subscription */}
-        <Card className="shadow-xl max-w-xl mx-auto">
+        <Card className="shadow-xl w-full">
           <CardContent className="p-6 md:p-8">
             <h2 className="text-2xl md:text-3xl font-bold text-[var(--brand-primary)] mb-4">
               Stay Updated
