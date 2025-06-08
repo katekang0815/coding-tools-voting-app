@@ -152,14 +152,21 @@ export default function HeroSection() {
               onSubmit={handleEmailSubmit}
               className="flex flex-col sm:flex-row gap-3 max-w-md w-full"
             >
-              <Input
-                type="email"
-                placeholder="Enter your email to stay updated"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-4 py-3 text-base"
-                required
-              />
+              <div className="relative flex-1">
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <Input
+                  type="email"
+                  placeholder="Enter your email to stay updated"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 text-base bg-gray-800/50 border-gray-600/50 text-white placeholder-gray-400 rounded-lg focus:border-blue-400 focus:ring-blue-400"
+                  required
+                />
+              </div>
               <Button
                 type="submit"
                 disabled={isSubmitting}
