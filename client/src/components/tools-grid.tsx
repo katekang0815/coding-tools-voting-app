@@ -244,7 +244,7 @@ export default function ToolsGrid() {
                 </div>
               )}
             </div>
-            <span className="text-xs md:text-sm font-medium text-[var(--brand-primary)] group-hover:text-[var(--brand-secondary)] transition-colors duration-300 text-center">
+            <span className="text-xs md:text-sm font-medium text-white group-hover:text-gray-200 transition-colors duration-300 text-center">
               {tool.name}
             </span>
           </div>
