@@ -148,28 +148,16 @@ export default function ToolsGrid() {
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const toolElements = entry.target.querySelectorAll('.tool-item');
-            toolElements.forEach((tool, index) => {
-              setTimeout(() => {
-                tool.classList.add('animate-fade-in-up');
-              }, index * 100);
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (gridRef.current) {
-      observer.observe(gridRef.current);
+    // Simple animation trigger when tools are loaded
+    if (tools.length > 0 && gridRef.current) {
+      const toolElements = gridRef.current.querySelectorAll('.tool-item');
+      toolElements.forEach((tool, index) => {
+        setTimeout(() => {
+          tool.classList.add('animate-fade-in-up');
+        }, index * 100);
+      });
     }
-
-    return () => observer.disconnect();
-  }, []);
+  }, [tools.length]);
 
   if (isLoading) {
     return (
@@ -191,7 +179,7 @@ export default function ToolsGrid() {
         const isLiked = isToolLiked(tool.id);
         
         return (
-          <div key={tool.name} className="tool-item flex flex-col items-center group opacity-0">
+          <div key={tool.name} className="tool-item flex flex-col items-center group opacity-100">
             <div className="relative">
               <div className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${displayConfig.gradientFrom} ${displayConfig.gradientTo} flex items-center justify-center shadow-lg mb-3`}>
                 {displayConfig.icon}
