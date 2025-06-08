@@ -1,8 +1,50 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ToolsGrid from "@/components/tools-grid";
+import { useEffect } from "react";
 
 export default function HeroSection() {
+  useEffect(() => {
+    const texts = [
+      "What AI Agent do you use most?",
+      "Vote for it!"
+    ];
+    
+    let currentTextIndex = 0;
+    let currentCharIndex = 0;
+    let isDeleting = false;
+    const typingElement = document.getElementById('typing-text');
+    
+    if (!typingElement) return;
+
+    function typeText() {
+      const currentText = texts[currentTextIndex];
+      
+      if (isDeleting) {
+        typingElement.textContent = currentText.substring(0, currentCharIndex - 1);
+        currentCharIndex--;
+      } else {
+        typingElement.textContent = currentText.substring(0, currentCharIndex + 1);
+        currentCharIndex++;
+      }
+
+      let typeSpeed = isDeleting ? 50 : 100;
+
+      if (!isDeleting && currentCharIndex === currentText.length) {
+        typeSpeed = 2000; // Pause at end
+        isDeleting = true;
+      } else if (isDeleting && currentCharIndex === 0) {
+        isDeleting = false;
+        currentTextIndex = (currentTextIndex + 1) % texts.length;
+        typeSpeed = 500; // Pause before next text
+      }
+
+      setTimeout(typeText, typeSpeed);
+    }
+
+    typeText();
+  }, []);
+
   return (
     <section className="hero-gradient min-h-screen flex items-center justify-center px-4 py-16">
       <div className="max-w-6xl mx-auto text-center">
@@ -12,9 +54,10 @@ export default function HeroSection() {
             Vibe Coding
             <span className="text-[var(--brand-secondary)]"> Tools</span>
           </h1>
-          <div className="overflow-hidden mb-8 max-w-4xl mx-auto">
-            <div className="animate-slide-text text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed whitespace-nowrap">
-              Discover today's most innovative coding experiences! &nbsp;&nbsp;&nbsp;&nbsp; What AI Agent do you use most? Vote for it! &nbsp;&nbsp;&nbsp;&nbsp; Discover today's most innovative coding experiences! &nbsp;&nbsp;&nbsp;&nbsp; What AI Agent do you use most? Vote for it! &nbsp;&nbsp;&nbsp;&nbsp;
+          <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
+            <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed">
+              <span id="typing-text"></span>
+              <span className="animate-blink">|</span>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
