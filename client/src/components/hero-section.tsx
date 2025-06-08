@@ -129,12 +129,13 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="bg-black min-h-screen flex items-center justify-center px-4 py-16 pt-24">
+    <section className="hero-gradient min-h-screen flex items-center justify-center px-4 py-16 pt-24">
       <div className="max-w-6xl mx-auto text-center">
         {/* Hero Content */}
         <div className="mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-            Redesign your website
+          <h1 className="text-5xl md:text-7xl font-bold text-[var(--brand-primary)] mb-6 leading-tight">
+            Vibe Coding
+            <span className="text-[var(--brand-secondary)]"> Tools</span>
           </h1>
           <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
             <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -159,31 +160,27 @@ export default function HeroSection() {
               </Button>
             </div>
 
-            {/* URL Input and Redesign Button */}
-            <div className="flex flex-col gap-4 max-w-lg w-full">
+            {/* Email Subscription Form */}
+            <form
+              onSubmit={handleEmailSubmit}
+              className="flex flex-col sm:flex-row gap-3 max-w-md w-full"
+            >
               <Input
-                type="url"
-                placeholder="Enter website URL..."
+                type="email"
+                placeholder="Enter your email to stay updated"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-4 py-3 text-base bg-gray-800 border-gray-700 text-white placeholder-gray-400 rounded-lg"
+                className="flex-1 px-4 py-3 text-base"
                 required
               />
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-6 py-3 font-semibold transition-all duration-300 transform hover:scale-105 rounded-lg"
+                className="bg-[var(--brand-accent)] hover:bg-[hsl(158,64%,42%)] text-white px-6 py-3 font-semibold transition-all duration-300 transform hover:scale-105"
               >
-                🎨 {isSubmitting ? "Processing..." : "Redesign"}
+                {isSubmitting ? "Submitting..." : "Subscribe"}
               </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Preview Area */}
-        <div className="mb-16 max-w-4xl mx-auto">
-          <div className="bg-gray-800 rounded-xl p-8 min-h-96 flex items-center justify-center border border-gray-700">
-            <p className="text-gray-400 text-lg">Your redesigned website will appear here</p>
+            </form>
           </div>
         </div>
 

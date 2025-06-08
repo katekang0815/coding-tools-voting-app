@@ -41,18 +41,18 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-black border-t border-gray-800">
+    <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-                Redesign Tools
+              <h2 className="text-2xl font-bold text-[var(--brand-primary)]">
+                Vibe Coding <span className="text-[var(--brand-secondary)]">Tools</span>
               </h2>
             </div>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Transform your website with AI-powered redesigns. Discover tools that make web development faster and more creative.
+            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
+              Discover and vote for the best coding tools that make development more enjoyable and productive. Join our community of developers.
             </p>
             
             {/* Social Links */}
