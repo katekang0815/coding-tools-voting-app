@@ -90,8 +90,7 @@ export default function ToolsGrid() {
     enabled: !!currentUserId,
   });
 
-  // Debug logging
-  console.log("ToolsGrid Debug:", { tools, isLoading, error, toolsLength: tools.length });
+
 
   // Like toggle mutation
   const likeMutation = useMutation({
@@ -172,9 +171,16 @@ export default function ToolsGrid() {
     );
   }
 
+  // Sort tools by their predefined order to maintain consistent positioning
+  const sortedTools = [...tools].sort((a, b) => {
+    const orderA = toolDisplayConfig.findIndex(config => config.name === a.name);
+    const orderB = toolDisplayConfig.findIndex(config => config.name === b.name);
+    return orderA - orderB;
+  });
+
   return (
     <div ref={gridRef} className="grid grid-cols-5 gap-8 md:gap-12 mb-16 max-w-2xl mx-auto">
-      {tools.map((tool) => {
+      {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
         const isLiked = isToolLiked(tool.id);
         
