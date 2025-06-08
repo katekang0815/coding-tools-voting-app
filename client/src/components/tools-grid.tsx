@@ -160,11 +160,11 @@ export default function ToolsGrid() {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-5 gap-8 md:gap-12 mb-16 max-w-2xl mx-auto">
+      <div className="grid grid-cols-5 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10">
         {Array.from({ length: 10 }).map((_, index) => (
           <div key={index} className="flex flex-col items-center">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-200 animate-pulse mb-3"></div>
-            <div className="w-12 h-3 bg-gray-200 animate-pulse rounded"></div>
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-700 animate-pulse mb-3"></div>
+            <div className="w-12 h-3 bg-gray-700 animate-pulse rounded"></div>
           </div>
         ))}
       </div>
@@ -179,7 +179,7 @@ export default function ToolsGrid() {
   });
 
   return (
-    <div ref={gridRef} className="grid grid-cols-5 gap-8 md:gap-12 mb-16 max-w-2xl mx-auto">
+    <div ref={gridRef} className="grid grid-cols-5 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10">
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
         const isLiked = isToolLiked(tool.id);
