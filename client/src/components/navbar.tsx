@@ -42,7 +42,7 @@ export default function Navbar() {
           <div className="hidden md:block">
             <Button
               size="sm"
-              className="bg-[var(--brand-secondary)] hover:bg-[hsl(244,79%,52%)] text-white font-semibold transition-all duration-300 transform hover:scale-105"
+              className="bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:from-green-500 hover:via-cyan-500 hover:to-blue-600 text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Get Started
             </Button>
