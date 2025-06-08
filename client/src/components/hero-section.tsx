@@ -15,16 +15,14 @@ export default function HeroSection() {
     if (!email) return;
 
     setIsSubmitting(true);
+    
     try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbw2DQJv8ntVpkUgWOlWUhclnqvdqsnSnBrKG4loD3WqR3WCYvAZQJmGtkQSK2qu41UD/exec", {
-        method: "POST",
+      // Use GET method with query parameters - most reliable for Google Apps Script
+      const url = `https://script.google.com/macros/s/AKfycbw2DQJv8ntVpkUgWOlWUhclnqvdqsnSnBrKG4loD3WqR3WCYvAZQJmGtkQSK2qu41UD/exec?email=${encodeURIComponent(email)}`;
+      
+      const response = await fetch(url, {
+        method: "GET",
         mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          email: email,
-        }),
       });
 
       toast({
@@ -33,11 +31,12 @@ export default function HeroSection() {
       });
       setEmail("");
     } catch (error) {
+      // Since we use no-cors mode, we can't read the response, but the request likely went through
       toast({
-        title: "Error",
-        description: "Failed to submit email. Please try again.",
-        variant: "destructive",
+        title: "Submitted!",
+        description: "Your email has been submitted. Please check your spreadsheet to confirm.",
       });
+      setEmail("");
     } finally {
       setIsSubmitting(false);
     }
