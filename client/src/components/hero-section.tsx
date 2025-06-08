@@ -8,8 +8,8 @@ export default function HeroSection() {
   const [isTyping, setIsTyping] = useState(true);
   
   const messages = [
-    "Discover today's most innovative coding experiences!",
-    "What AI Agent do you use most? Vote for it!"
+    "Vote for it!",
+    "What AI Agent do you use most?"
   ];
 
   useEffect(() => {
