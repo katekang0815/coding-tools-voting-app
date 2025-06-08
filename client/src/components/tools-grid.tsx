@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers, MessageSquare } from "lucide-react";
+import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers, MessageSquare, Wind } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import type { Tool } from "@shared/schema";
@@ -67,10 +67,10 @@ const toolDisplayConfig: ToolDisplay[] = [
     gradientTo: "to-blue-600"
   },
   {
-    name: "Rewind",
-    icon: <RefreshCw className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-300",
-    gradientTo: "to-gray-400"
+    name: "Windsurf",
+    icon: <Wind className="w-8 h-8 text-white" />,
+    gradientFrom: "from-blue-400",
+    gradientTo: "to-blue-600"
   }
 ];
 
