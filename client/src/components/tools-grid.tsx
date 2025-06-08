@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Code, Zap, TreePine, Palette, Heart, RefreshCw, Pointer, Terminal, Circle, Square, Layers, MessageSquare } from "lucide-react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import type { Tool } from "@shared/schema";
 
-interface Tool {
+interface ToolDisplay {
   name: string;
   icon: JSX.Element;
   gradientFrom: string;
   gradientTo: string;
 }
 
-const tools: Tool[] = [
+const toolDisplayConfig: ToolDisplay[] = [
   // First row - matching your image
   {
     name: "ChatGPT",
@@ -75,18 +78,70 @@ const tools: Tool[] = [
 
 export default function ToolsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
-  const [likedTools, setLikedTools] = useState<Set<string>>(new Set());
+  const queryClient = useQueryClient();
+  const [currentUserId] = useState(1); // For demo purposes - in real app this would come from auth
 
-  const toggleLike = (toolName: string) => {
-    setLikedTools(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(toolName)) {
-        newSet.delete(toolName);
-      } else {
-        newSet.add(toolName);
-      }
-      return newSet;
-    });
+  // Fetch tools from database
+  const { data: tools = [], isLoading } = useQuery<Tool[]>({
+    queryKey: ["/api/tools"],
+  });
+
+  // Fetch user likes
+  const { data: userLikes = [] } = useQuery<Array<{ toolId: number; liked: boolean }>>({
+    queryKey: ["/api/tools/likes", currentUserId],
+    enabled: !!currentUserId,
+  });
+
+  // Like toggle mutation
+  const likeMutation = useMutation({
+    mutationFn: async (toolId: number) => {
+      return await apiRequest(`/api/tools/${toolId}/like`, {
+        method: "POST",
+        body: JSON.stringify({ userId: currentUserId }),
+        headers: { "Content-Type": "application/json" },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/tools"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/tools/likes", currentUserId] });
+    },
+  });
+
+  // Seed tools on first load
+  const seedMutation = useMutation({
+    mutationFn: async (toolName: string) => {
+      return await apiRequest("/api/tools", {
+        method: "POST",
+        body: JSON.stringify({ name: toolName }),
+        headers: { "Content-Type": "application/json" },
+      });
+    },
+  });
+
+  // Seed tools if they don't exist
+  useEffect(() => {
+    if (tools.length === 0 && !isLoading) {
+      toolDisplayConfig.forEach(tool => {
+        seedMutation.mutate(tool.name);
+      });
+    }
+  }, [tools.length, isLoading]);
+
+  const handleLike = (toolId: number) => {
+    likeMutation.mutate(toolId);
+  };
+
+  const getToolDisplayConfig = (toolName: string): ToolDisplay => {
+    return toolDisplayConfig.find(config => config.name === toolName) || {
+      name: toolName,
+      icon: <Circle className="w-8 h-8 text-white" />,
+      gradientFrom: "from-gray-500",
+      gradientTo: "from-gray-600"
+    };
+  };
+
+  const isToolLiked = (toolId: number): boolean => {
+    return userLikes.find(like => like.toolId === toolId)?.liked || false;
   };
 
   useEffect(() => {
