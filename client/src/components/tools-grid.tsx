@@ -71,6 +71,12 @@ const toolDisplayConfig: ToolDisplay[] = [
     icon: <Wind className="w-8 h-8 text-white" />,
     gradientFrom: "from-cyan-400",
     gradientTo: "to-blue-500"
+  },
+  {
+    name: "Gemini",
+    icon: <Layers className="w-8 h-8 text-white" />,
+    gradientFrom: "from-purple-500",
+    gradientTo: "to-indigo-600"
   }
 ];
 
