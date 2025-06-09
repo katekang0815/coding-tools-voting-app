@@ -279,16 +279,56 @@ export default function ToolsGrid() {
       ref={gridRef}
       className="grid grid-cols-4 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10 p-10 rounded-2xl"
     >
-      {sortedTools.map((tool) => (
-        <ToolItem
-          key={tool.id}
-          tool={tool}
-          displayConfig={getToolDisplayConfig(tool.name)}
-          isLiked={isToolLiked(tool.id)}
-          onLike={handleLike}
-          isLikePending={likeMutation.isPending}
-        />
-      ))}
+      {sortedTools.map((tool) => {
+        const displayConfig = getToolDisplayConfig(tool.name);
+        const isLiked = isToolLiked(tool.id);
+        return (
+          <div
+            key={tool.name}
+            className="tool-item flex flex-col items-center group opacity-100"
+          >
+            <div className="relative p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300">
+              <div className="flex flex-col items-center">
+                <div
+                  className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-3`}
+                >
+                  {displayConfig.brandIcon ? (
+                    <img
+                      src={displayConfig.brandIcon}
+                      alt={`${tool.name} icon`}
+                      className="w-8 h-8"
+                    />
+                  ) : (
+                    displayConfig.icon
+                  )}
+                </div>
+                <span className="text-xs md:text-sm font-medium text-white group-hover:text-gray-200 transition-colors duration-300 text-center">
+                  {tool.name}
+                </span>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleLike(tool.id);
+                }}
+                disabled={likeMutation.isPending}
+                className="absolute -top-2 -right-2 w-8 h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-0 group-hover:opacity-100"
+              >
+                <Heart className={`w-6 h-6 stroke-2 transition-all duration-300 ${
+                  isLiked 
+                    ? "fill-red-500 stroke-red-500 text-red-500" 
+                    : "fill-none stroke-red-500 hover:fill-red-500"
+                }`} />
+              </button>
+              {tool.likeCount > 0 && (
+                <div className="absolute -bottom-2 -right-2 bg-gray-500/50 text-green-400 text-base rounded-full w-8 h-8 flex items-center justify-center font-bold transition-all duration-300">
+                  {tool.likeCount}
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

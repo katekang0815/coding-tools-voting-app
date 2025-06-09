@@ -31,7 +31,7 @@ export default function Footer() {
               <Heart className="h-4 w-4 text-red-500 mx-1 fill-current" />
               <span>by Yehsun Kang</span>
             </div>
-            <div className="text-sm text-gray-400">
+            <div className="text-sm text-gray-400 font-light">
               © {currentYear} Powered By Replit
             </div>
           </div>
