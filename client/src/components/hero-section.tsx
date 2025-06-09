@@ -113,24 +113,27 @@ export default function HeroSection() {
 
       // Handle "Vote!" text with shake animation and larger size
       if (currentText === "Vote!") {
-        typingElement!.classList.add("text-3xl", "md:text-4xl");
-        typingElement!.classList.remove("text-xl", "md:text-2xl");
+        typingElement!.classList.add("text-3xl", "md:text-4xl", "font-bold", "text-green-400");
+        typingElement!.classList.remove("text-xl", "md:text-2xl", "text-blue-400");
         
         // Only add shake when "Vote!" is fully typed
         if (!isDeleting && currentCharIndex === currentText.length) {
+          console.log("Adding shake animation to Vote!");
           // Force animation restart by removing and re-adding the class
           typingElement!.classList.remove("animate-shake");
-          // Force reflow to ensure the class removal takes effect
-          void typingElement!.offsetHeight;
-          typingElement!.classList.add("animate-shake");
-        } else if (isDeleting) {
+          // Use requestAnimationFrame for better timing
+          requestAnimationFrame(() => {
+            typingElement!.classList.add("animate-shake");
+          });
+        } else if (isDeleting && currentCharIndex === currentText.length - 1) {
           // Remove shake when starting to delete
+          console.log("Removing shake animation");
           typingElement!.classList.remove("animate-shake");
         }
       } else {
         // Remove shake and reset size for other text
-        typingElement!.classList.remove("animate-shake", "text-3xl", "md:text-4xl");
-        typingElement!.classList.add("text-xl", "md:text-2xl");
+        typingElement!.classList.remove("animate-shake", "text-3xl", "md:text-4xl", "font-bold", "text-green-400");
+        typingElement!.classList.add("text-xl", "md:text-2xl", "text-blue-400");
       }
 
       let typeSpeed = isDeleting ? 50 : 100;
