@@ -23,6 +23,7 @@ interface ToolDisplay {
   icon: JSX.Element;
   gradientFrom: string;
   gradientTo: string;
+    brandIcon?: string;
 }
 
 const toolDisplayConfig: ToolDisplay[] = [
@@ -31,60 +32,70 @@ const toolDisplayConfig: ToolDisplay[] = [
     icon: <MessageSquare className="w-8 h-8 text-white" />,
     gradientFrom: "from-green-500", // OpenAI brand green
     gradientTo: "to-green-700",
+    brandIcon: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
   },
   {
     name: "Copilot",
     icon: <Zap className="w-8 h-8 text-white" />,
     gradientFrom: "from-blue-600", // GitHub blue
     gradientTo: "to-indigo-700",
+    brandIcon: "https://github.githubassets.com/images/modules/site/copilot/copilot.png",
   },
   {
     name: "Canva",
     icon: <TreePine className="w-8 h-8 text-white" />,
     gradientFrom: "from-purple-500", // Canva purple
     gradientTo: "to-violet-600",
+    brandIcon: "https://upload.wikimedia.org/wikipedia/commons/0/08/Canva_icon_2021.svg",
   },
   {
     name: "Claude",
     icon: <Palette className="w-8 h-8 text-white" />,
     gradientFrom: "from-orange-500", // Anthropic orange
     gradientTo: "to-orange-700",
+    brandIcon: "/icons/ai-logo.png", // Using your provided AI logo
   },
   {
     name: "Lovable",
     icon: <Heart className="w-8 h-8 text-white" />,
     gradientFrom: "from-pink-500", // Lovable pink/magenta
     gradientTo: "to-rose-600",
+    brandIcon: "https://lovable.dev/favicon.ico",
   },
   {
     name: "Replit",
     icon: <Terminal className="w-8 h-8 text-white" />,
     gradientFrom: "from-orange-400", // Replit orange
     gradientTo: "to-red-500",
+    brandIcon: "https://replit.com/public/images/logo-small.png",
   },
   {
     name: "Figma",
     icon: <Square className="w-8 h-8 text-white" />,
     gradientFrom: "from-red-500", // Figma red
     gradientTo: "to-purple-600", // with purple accent
+    brandIcon: "https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg",
   },
   {
     name: "Cursor",
     icon: <Pointer className="w-8 h-8 text-white" />,
     gradientFrom: "from-blue-500", // Cursor blue
     gradientTo: "to-cyan-600",
+    brandIcon: "https://cursor.sh/brand/icon.svg",
   },
   {
     name: "Windsurf",
     icon: <Wind className="w-8 h-8 text-white" />,
     gradientFrom: "from-teal-400", // Windsurf teal/aqua
     gradientTo: "to-blue-500",
+    brandIcon: "https://windsurf.ai/favicon.ico",
   },
   {
     name: "Gemini",
     icon: <Layers className="w-8 h-8 text-white" />,
     gradientFrom: "from-blue-500", // Google blue
     gradientTo: "to-purple-600", // with purple gradient
+    brandIcon: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg",
   },
 ];
 
@@ -221,7 +232,15 @@ export default function ToolsGrid() {
               <div
                 className={`tool-icon icon-shadow-pulse w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${displayConfig.gradientFrom} ${displayConfig.gradientTo} flex items-center justify-center shadow-lg mb-3`}
               >
-                {displayConfig.icon}
+                {displayConfig.brandIcon ? (
+                  <img
+                    src={displayConfig.brandIcon}
+                    alt={`${tool.name} icon`}
+                    className="w-8 h-8"
+                  />
+                ) : (
+                  displayConfig.icon
+                )}
               </div>
               <button
                 onClick={(e) => {
