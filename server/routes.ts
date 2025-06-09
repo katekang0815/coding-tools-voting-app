@@ -1,8 +1,36 @@
 import type { Express } from "express";
 import { storage } from "./storage";
-import { insertToolSchema } from "@shared/schema";
+import { insertToolSchema, insertUserSchema } from "@shared/schema";
+
+// Extend Express Request type to include session
+declare module 'express-session' {
+  interface SessionData {
+    userId?: number;
+  }
+}
 
 export async function registerRoutes(app: Express): Promise<void> {
+  // Get or create user session
+  app.get("/api/user/session", async (req, res) => {
+    try {
+      if (!req.session.userId) {
+        // Create a new anonymous user
+        const uniqueUsername = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const newUser = await storage.createUser({ 
+          username: uniqueUsername, 
+          password: 'anonymous' 
+        });
+        req.session.userId = newUser.id;
+      }
+      
+      const user = await storage.getUser(req.session.userId);
+      res.json({ userId: user?.id, username: user?.username });
+    } catch (error: any) {
+      console.error("Error managing user session:", error);
+      res.status(500).json({ message: "Failed to manage user session" });
+    }
+  });
+
   // Get all tools with their like counts
   app.get("/api/tools", async (req, res) => {
     try {
@@ -48,17 +76,20 @@ export async function registerRoutes(app: Express): Promise<void> {
     }
   });
 
-  // Toggle like for a tool (requires user session)
+  // Toggle like for a tool (uses session-based user identification)
   app.post("/api/tools/:toolId/like", async (req, res) => {
     try {
       const toolId = parseInt(req.params.toolId);
-      const { userId } = req.body;
-
-      if (!userId || !toolId) {
-        return res.status(400).json({ message: "User ID and Tool ID are required" });
+      
+      if (!req.session.userId) {
+        return res.status(401).json({ message: "User session required" });
       }
 
-      const result = await storage.toggleToolLike(userId, toolId);
+      if (!toolId) {
+        return res.status(400).json({ message: "Tool ID is required" });
+      }
+
+      const result = await storage.toggleToolLike(req.session.userId, toolId);
       res.json(result);
     } catch (error: any) {
       console.error("Error toggling tool like:", error);

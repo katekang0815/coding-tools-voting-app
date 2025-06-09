@@ -1,9 +1,22 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { createServer } from "http";
+import session from "express-session";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+
+// Session configuration
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false, // Set to true in production with HTTPS
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+  }
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -63,8 +76,11 @@ app.use((req, res, next) => {
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = process.env.PORT || 5000;
-  server.listen(port, "0.0.0.0", () => {
+  const port = parseInt(process.env.PORT || "5000");
+  server.listen({
+    port,
+    host: "0.0.0.0",
+  }, () => {
     log(`serving on port ${port}`);
   });
 })();
