@@ -207,12 +207,11 @@ export default function ToolsGrid() {
   return (
     <div
       ref={gridRef}
-      className="grid grid-cols-4 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10 m-10 p-20 rounded-2xl bg-gray-900 shadow-gradual-build"
+      className="grid grid-cols-4 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10 m-10 p-20 rounded-2xl"
     >
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
         const isLiked = isToolLiked(tool.id);
-
         return (
           <div
             key={tool.name}
@@ -244,7 +243,7 @@ export default function ToolsGrid() {
                 </div>
               )}
             </div>
-            <span className="text-xs md:text-sm font-medium text-[var(--brand-primary)] group-hover:text-[var(--brand-secondary)] transition-colors duration-300 text-center">
+            <span className="text-xs md:text-sm font-medium text-white group-hover:text-gray-200 transition-colors duration-300 text-center">
               {tool.name}
             </span>
           </div>
