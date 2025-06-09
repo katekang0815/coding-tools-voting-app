@@ -52,40 +52,43 @@ export default function Footer() {
   return (
     <footer className="bg-black border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Main Content */}
-        <div className="flex flex-col items-center text-center space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
-          <div>
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Vibe Coding <span className="gradient-text">Tools</span>
-            </h2>
-            <p className="text-gray-400 text-lg">Discover and vote for your favorite AI coding tools</p>
-          </div>
+          <div className="lg:col-span-2">
+            <div className="mb-4">
+              <h2 className="text-2xl font-bold text-white">
+                Vibe Coding <span className="gradient-text">Tools</span>
+              </h2>
+            </div>
 
-          {/* Social Links */}
-          <div className="flex space-x-6">
-            {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.href}
-                className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 transform hover:scale-110"
-                aria-label={social.name}
-              >
-                <social.icon className="h-7 w-7" />
-              </a>
-            ))}
+            
+            {/* Social Links */}
+            <div className="flex space-x-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  className="text-gray-400 hover:text-cyan-400 transition-colors duration-200"
+                  aria-label={social.name}
+                >
+                  <social.icon className="h-6 w-6" />
+                </a>
+              ))}
+            </div>
           </div>
+        </div>
 
-          {/* Made by Section */}
-          <div className="flex items-center text-gray-400 text-lg">
-            <span>Made with</span>
-            <Heart className="h-5 w-5 text-red-500 mx-2 fill-current" />
-            <span>by Yehsun Kang</span>
-          </div>
-
-          {/* Copyright */}
-          <div className="text-gray-500 text-sm border-t border-gray-800 pt-4 w-full">
-            © {currentYear} Powered By Replit. All rights reserved.
+        {/* Bottom Section */}
+        <div className="mt-2 pt-4 ">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center text-sm text-gray-400">
+              <span>Made with</span>
+              <Heart className="h-4 w-4 text-red-500 mx-1 fill-current" />
+              <span>by Yehsun Kang</span>
+            </div>
+            <div className="mt-4 md:mt-0 text-sm text-gray-400">
+              © {currentYear} Powered By Replit.
+            </div>
           </div>
         </div>
       </div>
