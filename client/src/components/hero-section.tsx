@@ -113,7 +113,7 @@ export default function HeroSection() {
 
       // Handle "Vote!" text with shake animation and larger size
       if (currentText === "Vote!") {
-        typingElement!.classList.add("text-3xl", "md:text-4xl", "font-bold", "text-green-400");
+        typingElement!.classList.add("text-3xl", "md:text-4xl", "font-bold", "text-blue-400");
         typingElement!.classList.remove("text-xl", "md:text-2xl", "text-blue-400");
         
         // Only add shake when "Vote!" is fully typed
