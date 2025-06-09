@@ -230,7 +230,7 @@ export default function ToolsGrid() {
           >
             <div className="relative">
               <div
-                className={`tool-icon icon-shadow-pulse w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br ${displayConfig.gradientFrom} ${displayConfig.gradientTo} flex items-center justify-center shadow-lg mb-3`}
+                className={`tool-icon icon-shadow-pulse w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-3`}
               >
                 {displayConfig.brandIcon ? (
                   <img
