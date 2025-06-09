@@ -44,6 +44,7 @@ export default function HeroSection() {
       toast({
         title: "Success!",
         description: "Your email has been submitted successfully.",
+        variant: "success",
       });
       setEmail("");
     } catch (error) {
@@ -54,6 +55,7 @@ export default function HeroSection() {
         title: "Submitted!",
         description:
           "Your email has been submitted. Please check your spreadsheet to confirm.",
+        variant: "success",
       });
       setEmail("");
     } finally {

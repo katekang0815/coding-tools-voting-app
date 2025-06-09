@@ -12,8 +12,8 @@ export default function Footer() {
   return (
     <footer className="bg-black border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mt-2 pt-4 ">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-2 pt-4">
+          <div className="flex flex-col items-center text-center space-y-4">
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
                 <a
@@ -31,7 +31,7 @@ export default function Footer() {
               <Heart className="h-4 w-4 text-red-500 mx-1 fill-current" />
               <span>by Yehsun Kang</span>
             </div>
-            <div className="mt-4 md:mt-0 text-sm text-gray-400">
+            <div className="text-sm text-gray-400">
               © {currentYear} Powered By Replit.
             </div>
           </div>
