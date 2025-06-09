@@ -196,7 +196,7 @@
   }
 
   .shadow-gradual-build {
-    animation: shadowGradualBuild 3s ease-out forwards;
+    animation: shadowGradualBuild 4s ease-in-out infinite;
     transform-origin: center;
   }
 }
