@@ -29,62 +29,62 @@ const toolDisplayConfig: ToolDisplay[] = [
   {
     name: "ChatGPT",
     icon: <MessageSquare className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-green-500", // OpenAI brand green
+    gradientTo: "to-green-700",
   },
   {
     name: "Copilot",
     icon: <Zap className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-blue-600", // GitHub blue
+    gradientTo: "to-indigo-700",
   },
   {
     name: "Canva",
     icon: <TreePine className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-purple-500", // Canva purple
+    gradientTo: "to-violet-600",
   },
   {
     name: "Claude",
     icon: <Palette className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-orange-500", // Anthropic orange
+    gradientTo: "to-orange-700",
   },
   {
     name: "Lovable",
     icon: <Heart className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-pink-500", // Lovable pink/magenta
+    gradientTo: "to-rose-600",
   },
   {
     name: "Replit",
     icon: <Terminal className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-orange-400", // Replit orange
+    gradientTo: "to-red-500",
   },
   {
     name: "Figma",
     icon: <Square className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-red-500", // Figma red
+    gradientTo: "to-purple-600", // with purple accent
   },
   {
     name: "Cursor",
     icon: <Pointer className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-blue-500", // Cursor blue
+    gradientTo: "to-cyan-600",
   },
   {
     name: "Windsurf",
     icon: <Wind className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-teal-400", // Windsurf teal/aqua
+    gradientTo: "to-blue-500",
   },
   {
     name: "Gemini",
     icon: <Layers className="w-8 h-8 text-white" />,
-    gradientFrom: "from-gray-700",
-    gradientTo: "to-gray-900",
+    gradientFrom: "from-blue-500", // Google blue
+    gradientTo: "to-purple-600", // with purple gradient
   },
 ];
 
