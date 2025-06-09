@@ -228,8 +228,8 @@ export default function ToolsGrid() {
             key={tool.name}
             className="tool-item flex flex-col items-center group opacity-100"
           >
-            <div className="relative">
-              <div className="flex flex-col items-center">
+            <div className="relative p-6">
+              <div className="flex flex-col items-center"></div>
                 <div
                   className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-3`}
                 >
