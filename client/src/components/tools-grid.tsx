@@ -267,7 +267,6 @@ export default function ToolsGrid() {
                 </div>
               )}
             </div>
-          </div>
         );
       })}
     </div>
