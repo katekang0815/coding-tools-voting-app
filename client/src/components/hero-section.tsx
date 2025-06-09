@@ -113,17 +113,11 @@ export default function HeroSection() {
 
       // Add shake effect and larger size for "Vote!" text
       if (currentText === "Vote!") {
-        if (!isDeleting && currentCharIndex === currentText.length) {
-          // Apply shake and larger size when typing is complete
-          typingElement!.classList.add("animate-shake", "text-3xl", "md:text-4xl");
-          typingElement!.classList.remove("text-xl", "md:text-2xl");
-        } else if (isDeleting && currentCharIndex > 0) {
-          // Keep shake and larger size during deletion
-          typingElement!.classList.add("animate-shake", "text-3xl", "md:text-4xl");
-          typingElement!.classList.remove("text-xl", "md:text-2xl");
-        }
-      } else if (currentText === "What's your favorite AI agent?") {
-        // Remove shake and reset size for the other text
+        // Apply shake and larger size for any stage of "Vote!" text
+        typingElement!.classList.add("animate-shake", "text-3xl", "md:text-4xl");
+        typingElement!.classList.remove("text-xl", "md:text-2xl");
+      } else {
+        // Remove shake and reset size for other text
         typingElement!.classList.remove("animate-shake", "text-3xl", "md:text-4xl");
         typingElement!.classList.add("text-xl", "md:text-2xl");
       }
