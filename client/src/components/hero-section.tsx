@@ -85,7 +85,7 @@ export default function HeroSection() {
   }, [submittedEmails]);
 
   useEffect(() => {
-    const texts = ["What's your favorite AI agent?", "Vote!"];
+    const texts = ["What's your favorite AI Tools?", "Vote!"];
 
     let currentTextIndex = 0;
     let currentCharIndex = 0;
@@ -144,11 +144,9 @@ export default function HeroSection() {
       <div className="max-w-6xl mx-auto text-center relative z-10">
         {/* Hero Content */}
         <div className="mb-16">
-          <h1 className="text-2xl p-2 m-6 md:text-6xl font-bold gradient-text mb-6 leading-tight">
-            Vibe Coding Tools
-          </h1>
+       
           <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
-            <div className="text-xl md:text-2xl text-blue-400 leading-relaxed">
+            <div className="text-xl md:text-2xl text-blue-400 leading-relaxed ">
               <span id="typing-text"></span>
               <span className="animate-blink">|</span>
             </div>
