@@ -258,7 +258,7 @@ export default function ToolsGrid() {
                 <Heart className={`w-6 h-6 stroke-2 transition-all duration-300 ${
                   isLiked 
                     ? "fill-red-500 stroke-red-500 text-red-500" 
-                    : "fill-none stroke-red-500 hover:fill-red-100"
+                    : "fill-none stroke-red-500 hover:fill-red-500"
                 }`} />
               </button>
               {tool.likeCount > 0 && (
