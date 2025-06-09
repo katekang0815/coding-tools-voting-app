@@ -85,7 +85,7 @@ export default function HeroSection() {
   }, [submittedEmails]);
 
   useEffect(() => {
-    const texts = ["What’s your favorite AI agent?", "Vote!"];
+    const texts = ["What's your favorite AI agent?", "Vote!"];
 
     let currentTextIndex = 0;
     let currentCharIndex = 0;
@@ -109,6 +109,15 @@ export default function HeroSection() {
           currentCharIndex + 1,
         );
         currentCharIndex++;
+      }
+
+      // Add shake effect and larger size for "Vote!" text
+      if (currentText === "Vote!" && !isDeleting && currentCharIndex === currentText.length) {
+        typingElement!.classList.add("animate-shake", "text-3xl", "md:text-4xl");
+        typingElement!.classList.remove("text-xl", "md:text-2xl");
+      } else if (currentText === "What's your favorite AI agent?") {
+        typingElement!.classList.remove("animate-shake", "text-3xl", "md:text-4xl");
+        typingElement!.classList.add("text-xl", "md:text-2xl");
       }
 
       let typeSpeed = isDeleting ? 50 : 100;
