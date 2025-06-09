@@ -262,7 +262,7 @@ export default function ToolsGrid() {
                 }`} />
               </button>
               {tool.likeCount > 0 && (
-                <div className="absolute -bottom-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="absolute -bottom-1 -right-1 bg-blue-300 text-white text-sm rounded-full w-7 h-7 flex items-center justify-center font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
                   {tool.likeCount}
                 </div>
               )}
