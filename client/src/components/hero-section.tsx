@@ -163,7 +163,6 @@ export default function HeroSection() {
           <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
             <div className="text-xl md:text-2xl gradient-text leading-relaxed">
               <span id="typing-text"></span>
-              <span className="animate-blink gradient-text">|</span>
             </div>
           </div>
           {/* Tools Grid */}

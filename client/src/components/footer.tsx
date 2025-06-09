@@ -60,9 +60,7 @@ export default function Footer() {
                 Vibe Coding <span className="gradient-text">Tools</span>
               </h2>
             </div>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Discover and vote for the best coding tools that make development more enjoyable and productive. Join our community of developers.
-            </p>
+
             
             {/* Social Links */}
             <div className="flex space-x-4">
