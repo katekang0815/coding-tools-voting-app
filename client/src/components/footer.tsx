@@ -26,13 +26,13 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-            <div className="flex items-center text-sm text-gray-400">
+            <div className="flex items-center text-sm text-gray-400 gradient-text ">
               <span>Made with</span>
               <Heart className="h-4 w-4 text-red-500 mx-1 fill-current" />
               <span>by Yehsun Kang</span>
             </div>
-            <div className="text-sm font-light text-[#0066c9]">
-              © {currentYear} Powered By Replit.
+            <div className="text-sm text-gray-400">
+              © {currentYear} Powered By Replit
             </div>
           </div>
         </div>
