@@ -79,38 +79,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Footer Links */}
-          {footerSections.map((section) => (
-            <div key={section.title}>
-              <button
-                onClick={() => toggleSection(section.title)}
-                className="flex items-center justify-between w-full text-sm font-semibold text-white uppercase tracking-wider mb-4 hover:text-cyan-400 transition-colors duration-200"
-              >
-                {section.title}
-                <ChevronDown 
-                  className={`h-4 w-4 transform transition-transform duration-200 ${
-                    openSections[section.title] ? 'rotate-180' : ''
-                  }`} 
-                />
-              </button>
-              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                openSections[section.title] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-              }`}>
-                <ul className="space-y-3 pb-2">
-                  {section.links.map((link) => (
-                    <li key={link.name}>
-                      <a
-                        href={link.href}
-                        className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm block"
-                      >
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
+          
         </div>
 
         {/* Bottom Section */}
