@@ -161,7 +161,11 @@ const ToolItem = memo(({
 export default function ToolsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
-  const [currentUserId] = useState(1); // Using the test user we created
+
+  // Initialize user session
+  const { data: userSession } = useQuery<{ userId: number; username: string }>({
+    queryKey: ["/api/user/session"],
+  });
 
   // Fetch tools from database
   const {
@@ -176,21 +180,19 @@ export default function ToolsGrid() {
   const { data: userLikes = [] } = useQuery<
     Array<{ toolId: number; liked: boolean }>
   >({
-    queryKey: ["/api/tools/likes", currentUserId],
-    enabled: !!currentUserId,
+    queryKey: ["/api/tools/likes"],
+    enabled: !!userSession?.userId,
   });
 
   // Like toggle mutation
   const likeMutation = useMutation({
     mutationFn: async (toolId: number) => {
-      return await apiRequest(`/api/tools/${toolId}/like`, "POST", {
-        userId: currentUserId,
-      });
+      return await apiRequest(`/api/tools/${toolId}/like`, "POST");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/tools"] });
       queryClient.invalidateQueries({
-        queryKey: ["/api/tools/likes", currentUserId],
+        queryKey: ["/api/tools/likes"],
       });
     },
   });

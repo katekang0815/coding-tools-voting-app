@@ -101,15 +101,18 @@ export async function registerRoutes(app: Express): Promise<void> {
     }
   });
 
-  // Get user's like status for tools
-  app.get("/api/tools/likes/:userId", async (req, res) => {
+  // Get current user's like status for tools (session-based)
+  app.get("/api/tools/likes", async (req, res) => {
     try {
-      const userId = parseInt(req.params.userId);
+      if (!req.session.userId) {
+        return res.json([]); // Return empty array if no session
+      }
+
       const tools = await storage.getAllTools();
       
       const userLikes = await Promise.all(
         tools.map(async (tool) => {
-          const like = await storage.getUserToolLike(userId, tool.id);
+          const like = await storage.getUserToolLike(req.session.userId!, tool.id);
           return {
             toolId: tool.id,
             liked: like?.liked || false
