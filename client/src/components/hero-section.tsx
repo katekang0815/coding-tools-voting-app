@@ -87,7 +87,7 @@ export default function HeroSection() {
   }, [submittedEmails]);
 
   useEffect(() => {
-    const texts = ["Hover over your favorite AI Tool!", "Vote!"];
+    const texts = ["What's your favorite AI Tools?","Hover over icons...", "Vote!"];
 
     let currentTextIndex = 0;
     let currentCharIndex = 0;
