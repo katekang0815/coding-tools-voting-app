@@ -1,10 +1,7 @@
-import { Heart, Github, Twitter, Linkedin, Mail, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { Heart, Github, Twitter, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
-
   const socialLinks = [
     { name: "GitHub", icon: Github, href: "#" },
     { name: "Twitter", icon: Twitter, href: "#" },
@@ -12,57 +9,11 @@ export default function Footer() {
     { name: "Email", icon: Mail, href: "mailto:hello@vibecodingtools.com" },
   ];
 
-  const toggleSection = (sectionTitle: string) => {
-    setOpenSections(prev => ({
-      ...prev,
-      [sectionTitle]: !prev[sectionTitle]
-    }));
-  };
-
-  const footerSections = [
-    {
-      title: "Categories",
-      links: [
-        { name: "Research", href: "#research" },
-        { name: "Movie/Video", href: "#video" },
-        { name: "Visualization", href: "#visualization" },
-        { name: "Image Editing", href: "#image-editing" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { name: "Documentation", href: "#docs" },
-        { name: "Tutorials", href: "#tutorials" },
-        { name: "Blog", href: "#blog" },
-        { name: "Community", href: "#community" },
-      ],
-    },
-    {
-      title: "Company",
-      links: [
-        { name: "About", href: "#about" },
-        { name: "Contact", href: "#contact" },
-        { name: "Privacy Policy", href: "#privacy" },
-        { name: "Terms of Service", href: "#terms" },
-      ],
-    },
-  ];
-
   return (
     <footer className="bg-black border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Brand Section */}
-          <div className="lg:col-span-2">
-            <div className="mb-4">
-              <h2 className="text-2xl font-bold text-white">
-                Vibe Coding <span className="gradient-text">Tools</span>
-              </h2>
-            </div>
-
-            
-            {/* Social Links */}
+        <div className="mt-2 pt-4 ">
+          <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
                 <a
@@ -75,12 +26,6 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className="mt-2 pt-4 ">
-          <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center text-sm text-gray-400">
               <span>Made with</span>
               <Heart className="h-4 w-4 text-red-500 mx-1 fill-current" />
