@@ -253,7 +253,7 @@ export default function ToolsGrid() {
                   handleLike(tool.id);
                 }}
                 disabled={likeMutation.isPending}
-                className="absolute -top-2 -right-2 w-8 h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50"
+                className="absolute -top-2 -right-2 w-8 h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-0 group-hover:opacity-100"
               >
                 <Heart className={`w-6 h-6 stroke-2 transition-all duration-300 ${
                   isLiked 
@@ -261,9 +261,11 @@ export default function ToolsGrid() {
                     : "fill-none stroke-red-500 hover:fill-red-500"
                 }`} />
               </button>
-              <div className="absolute -bottom-2 -right-2 bg-gray-500/50 text-green-400 text-base rounded-full w-8 h-8 flex items-center justify-center font-bold transition-all duration-300">
-                {tool.likeCount}
-              </div>
+              {tool.likeCount > 0 && (
+                <div className="absolute -bottom-2 -right-2 bg-gray-500/50 text-green-400 text-base rounded-full w-8 h-8 flex items-center justify-center font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  {tool.likeCount}
+                </div>
+              )}
             </div>
           </div>
         );
