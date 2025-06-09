@@ -173,20 +173,12 @@
       box-shadow: 0 0 0px rgba(59, 130, 246, 0), 0 0 0px rgba(59, 130, 246, 0), 0 0 0px rgba(59, 130, 246, 0);
       transform: rotate(0deg);
     }
-    25% {
-      box-shadow: 0 0 5px rgba(59, 130, 246, 0.05), 0 0 10px rgba(59, 130, 246, 0.0375), 0 0 20px rgba(59, 130, 246, 0.025);
-      transform: rotate(0deg);
-    }
     50% {
-      box-shadow: 0 0 10px rgba(59, 130, 246, 0.1), 0 0 20px rgba(59, 130, 246, 0.075), 0 0 40px rgba(59, 130, 246, 0.05);
-      transform: rotate(0deg);
-    }
-    75% {
-      box-shadow: 0 0 15px rgba(59, 130, 246, 0.15), 0 0 30px rgba(59, 130, 246, 0.1125), 0 0 60px rgba(59, 130, 246, 0.075);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.15), 0 0 80px rgba(59, 130, 246, 0.1);
       transform: rotate(0deg);
     }
     100% {
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.15), 0 0 80px rgba(59, 130, 246, 0.1);
+      box-shadow: 0 0 0px rgba(59, 130, 246, 0), 0 0 0px rgba(59, 130, 246, 0), 0 0 0px rgba(59, 130, 246, 0);
       transform: rotate(0deg);
     }
   }
