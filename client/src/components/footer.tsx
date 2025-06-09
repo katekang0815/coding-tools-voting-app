@@ -78,20 +78,18 @@ export default function Footer() {
               ))}
             </div>
           </div>
-
-          
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        <div className="mt-2 pt-4 ">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center text-sm text-gray-400">
               <span>Made with</span>
               <Heart className="h-4 w-4 text-red-500 mx-1 fill-current" />
-              <span>by developers, for developers</span>
+              <span>by Yehsun Kang</span>
             </div>
             <div className="mt-4 md:mt-0 text-sm text-gray-400">
-              © {currentYear} Vibe Coding Tools. All rights reserved.
+              © {currentYear} Powered By Replit.
             </div>
           </div>
         </div>
