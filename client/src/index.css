@@ -75,7 +75,7 @@
 
 @layer components {
   .hero-gradient {
-    background: #ffffff;
+    background: #000000;
   }
 
   .tools-grid-container {
