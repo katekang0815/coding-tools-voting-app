@@ -111,11 +111,17 @@ export default function HeroSection() {
         currentCharIndex++;
       }
 
-      // Add shake effect and larger size for "Vote!" text
+      // Add larger size for "Vote!" text and shake only when fully typed
       if (currentText === "Vote!") {
-        // Apply shake and larger size for any stage of "Vote!" text
-        typingElement!.classList.add("animate-shake", "text-3xl", "md:text-4xl");
+        typingElement!.classList.add("text-3xl", "md:text-4xl");
         typingElement!.classList.remove("text-xl", "md:text-2xl");
+        
+        // Add shake only when the full "Vote!" text is typed and not deleting
+        if (!isDeleting && currentCharIndex === currentText.length) {
+          typingElement!.classList.add("animate-shake");
+        } else {
+          typingElement!.classList.remove("animate-shake");
+        }
       } else {
         // Remove shake and reset size for other text
         typingElement!.classList.remove("animate-shake", "text-3xl", "md:text-4xl");
