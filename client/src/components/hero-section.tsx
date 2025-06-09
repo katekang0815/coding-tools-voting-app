@@ -113,7 +113,7 @@ export default function HeroSection() {
 
       // Handle "Vote!" text with shake animation and larger size
       if (currentText === "Vote!") {
-        typingElement!.classList.add("text-3xl", "md:text-4xl", "font-bold", "text-blue-400");
+        typingElement!.classList.add("text-3xl", "md:text-4xl", "font-bold", "gradient-text");
         typingElement!.classList.remove("text-xl", "md:text-2xl", "text-blue-400");
         
         // Only add shake when "Vote!" is fully typed
@@ -132,8 +132,8 @@ export default function HeroSection() {
         }
       } else {
         // Remove shake and reset size for other text
-        typingElement!.classList.remove("animate-shake", "text-3xl", "md:text-4xl", "font-bold", "text-green-400");
-        typingElement!.classList.add("text-xl", "md:text-2xl", "text-blue-400");
+        typingElement!.classList.remove("animate-shake", "text-3xl", "md:text-4xl", "font-bold");
+        typingElement!.classList.add("text-xl", "md:text-2xl", "gradient-text");
       }
 
       let typeSpeed = isDeleting ? 50 : 100;
@@ -161,9 +161,9 @@ export default function HeroSection() {
         {/* deleted H1 */}
        
           <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
-            <div className="text-xl md:text-2xl text-blue-400 leading-relaxed">
+            <div className="text-xl md:text-2xl gradient-text leading-relaxed">
               <span id="typing-text"></span>
-              <span className="animate-blink">|</span>
+              <span className="animate-blink gradient-text">|</span>
             </div>
           </div>
           {/* Tools Grid */}
