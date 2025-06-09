@@ -1,7 +1,9 @@
-import { Heart, Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { Heart, Github, Twitter, Linkedin, Mail, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
 
   const socialLinks = [
     { name: "GitHub", icon: Github, href: "#" },
@@ -9,6 +11,13 @@ export default function Footer() {
     { name: "LinkedIn", icon: Linkedin, href: "#" },
     { name: "Email", icon: Mail, href: "mailto:hello@vibecodingtools.com" },
   ];
+
+  const toggleSection = (sectionTitle: string) => {
+    setOpenSections(prev => ({
+      ...prev,
+      [sectionTitle]: !prev[sectionTitle]
+    }));
+  };
 
   const footerSections = [
     {
@@ -73,21 +82,33 @@ export default function Footer() {
           {/* Footer Links */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              <button
+                onClick={() => toggleSection(section.title)}
+                className="flex items-center justify-between w-full text-sm font-semibold text-white uppercase tracking-wider mb-4 hover:text-cyan-400 transition-colors duration-200"
+              >
                 {section.title}
-              </h3>
-              <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+                <ChevronDown 
+                  className={`h-4 w-4 transform transition-transform duration-200 ${
+                    openSections[section.title] ? 'rotate-180' : ''
+                  }`} 
+                />
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                openSections[section.title] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              }`}>
+                <ul className="space-y-3 pb-2">
+                  {section.links.map((link) => (
+                    <li key={link.name}>
+                      <a
+                        href={link.href}
+                        className="text-gray-400 hover:text-cyan-400 transition-colors duration-200 text-sm block"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
