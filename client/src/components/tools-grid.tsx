@@ -228,8 +228,8 @@ export default function ToolsGrid() {
             key={tool.name}
             className="tool-item flex flex-col items-center group opacity-100"
           >
-            <div className="relative flex flex-col items-center">
-              <div className="flex flex-col items-center mb-2">
+            <div className="relative">
+              <div className="flex flex-col items-center">
                 <div
                   className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-3`}
                 >
@@ -253,7 +253,7 @@ export default function ToolsGrid() {
                   handleLike(tool.id);
                 }}
                 disabled={likeMutation.isPending}
-                className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 ${
+                className={`absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 ${
                   isLiked
                     ? "bg-red-500 text-white shadow-lg"
                     : "bg-white text-gray-400 hover:text-red-500 shadow-md border border-gray-200"
