@@ -259,7 +259,7 @@ export default function ToolsGrid() {
                     : "bg-white text-gray-400 hover:text-red-500 shadow-md border border-gray-200"
                 }`}
               >
-                <Heart className={`w-3 h-3 ${isLiked ? "fill-red-500 text-red-500" : ""}`} />
+                <Heart className={`w-3 h-3 ${isLiked ? "fill-current text-red-500" : ""}`} />
               </button>
               {tool.likeCount > 0 && (
                 <div className="absolute -bottom-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
