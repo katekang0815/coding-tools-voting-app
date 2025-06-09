@@ -1,15 +1,14 @@
 import type { Express } from "express";
-import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertToolSchema } from "@shared/schema";
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export async function registerRoutes(app: Express): Promise<void> {
   // Get all tools with their like counts
   app.get("/api/tools", async (req, res) => {
     try {
       const tools = await storage.getAllTools();
       res.json(tools);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching tools:", error);
       if (error.message === "Database not available") {
         // Return mock data when database is not available
@@ -39,7 +38,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const tool = await storage.createTool(validatedTool);
       res.status(201).json(tool);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating tool:", error);
       if (error.message === "Database not available") {
         res.status(503).json({ message: "Database temporarily unavailable" });
@@ -61,7 +60,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const result = await storage.toggleToolLike(userId, toolId);
       res.json(result);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error toggling tool like:", error);
       if (error.message === "Database not available") {
         res.status(503).json({ message: "Database temporarily unavailable" });
@@ -88,7 +87,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       );
 
       res.json(userLikes);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching user likes:", error);
       if (error.message === "Database not available") {
         res.json([]); // Return empty array when database is not available
@@ -98,7 +97,5 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  const httpServer = createServer(app);
 
-  return httpServer;
 }
