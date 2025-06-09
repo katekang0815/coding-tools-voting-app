@@ -111,15 +111,20 @@ export default function HeroSection() {
         currentCharIndex++;
       }
 
-      // Add larger size for "Vote!" text and shake only when fully typed
+      // Handle "Vote!" text with shake animation and larger size
       if (currentText === "Vote!") {
         typingElement!.classList.add("text-3xl", "md:text-4xl");
         typingElement!.classList.remove("text-xl", "md:text-2xl");
         
-        // Add shake only when the full "Vote!" text is typed and not deleting
+        // Only add shake when "Vote!" is fully typed
         if (!isDeleting && currentCharIndex === currentText.length) {
+          // Force animation restart by removing and re-adding the class
+          typingElement!.classList.remove("animate-shake");
+          // Force reflow to ensure the class removal takes effect
+          void typingElement!.offsetHeight;
           typingElement!.classList.add("animate-shake");
-        } else {
+        } else if (isDeleting) {
+          // Remove shake when starting to delete
           typingElement!.classList.remove("animate-shake");
         }
       } else {
@@ -150,9 +155,10 @@ export default function HeroSection() {
       <div className="max-w-6xl mx-auto text-center relative z-10">
         {/* Hero Content */}
         <div className="mb-16">
+        {/* deleted H1 */}
        
           <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
-            <div className="text-xl md:text-2xl text-blue-400 leading-relaxed ">
+            <div className="text-xl md:text-2xl text-blue-400 leading-relaxed">
               <span id="typing-text"></span>
               <span className="animate-blink">|</span>
             </div>
