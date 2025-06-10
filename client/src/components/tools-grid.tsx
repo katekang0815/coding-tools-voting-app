@@ -110,6 +110,9 @@ const toolDisplayConfig: ToolDisplay[] = [
 export default function ToolsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
+  
+  // Keep track of which tool IDs are "liked" locally for immediate UI feedback
+  const [likedTools, setLikedTools] = useState<Set<number>>(new Set());
 
   // Generate or get user ID from localStorage
   const [currentUserId] = useState(() => {
@@ -254,6 +257,14 @@ export default function ToolsGrid() {
 
   const handleLike = useCallback(
     (toolId: number) => {
+      // 1) Toggle our local UI state immediately
+      setLikedTools((prev) => {
+        const next = new Set(prev);
+        if (next.has(toolId)) next.delete(toolId);
+        else next.add(toolId);
+        return next;
+      });
+      // 2) Fire off your mutation (optimistic UI)
       likeMutation.mutate(toolId);
     },
     [likeMutation],
@@ -320,7 +331,7 @@ export default function ToolsGrid() {
     >
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
-        const isLiked = isToolLiked(tool.id);
+        const isLiked = likedTools.has(tool.id);
         return (
           <div
             key={tool.name}
@@ -353,9 +364,25 @@ export default function ToolsGrid() {
                   handleLike(tool.id);
                 }}
                 disabled={likeMutation.isPending}
-                className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 touch-manipulation"
+                className="
+                  absolute -top-1 -right-1
+                  w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8
+                  flex items-center justify-center
+                  transition-transform duration-300
+                  hover:scale-110
+                  disabled:opacity-50
+                  opacity-80 sm:opacity-0 sm:group-hover:opacity-100
+                "
               >
-                <Heart className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-2 transition-all duration-300 ${isLiked ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-red-500'}`} />
+                <Heart
+                  className={`
+                    w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6
+                    stroke-2 transition-all duration-300
+                    ${isLiked
+                      ? "fill-red-500 stroke-red-500"
+                      : "fill-none stroke-red-500"}
+                  `}
+                />
               </button>
               {tool.likeCount > 0 && (
                 <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 bg-gray-500/50 text-green-400 text-xs sm:text-sm md:text-base rounded-full w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex items-center justify-center font-bold transition-all duration-300">
