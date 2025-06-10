@@ -174,7 +174,7 @@
   }
 
   .animate-shake {
-    animation: shake 0.5s ease-in-out !important;
+    animation: shake 0.8s ease-in-out infinite !important;
     display: inline-block !important;
     transform-origin: center !important;
   }
