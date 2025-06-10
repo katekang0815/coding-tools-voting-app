@@ -316,7 +316,7 @@ export default function ToolsGrid() {
   return (
     <div
       ref={gridRef}
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-12 max-w-xs sm:max-w-lg md:max-w-2xl mx-auto relative z-10 p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl"
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-xs sm:max-w-lg md:max-w-2xl mx-auto relative z-10 p-4 sm:p-6 md:p-8 rounded-2xl"
     >
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
@@ -326,16 +326,16 @@ export default function ToolsGrid() {
             key={tool.name}
             className="tool-item flex flex-col items-center group opacity-100"
           >
-            <div className="relative p-3 sm:p-4 md:p-5 lg:p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300 w-full pl-[26px] pr-[26px]">
+            <div className="relative p-3 sm:p-4 md:p-5 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300 w-full">
               <div className="flex flex-col items-center">
                 <div
-                  className={`tool-icon w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3`}
+                  className={`tool-icon w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3`}
                 >
                   {displayConfig.brandIcon ? (
                     <img
                       src={displayConfig.brandIcon}
                       alt={`${tool.name} icon`}
-                      className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-8 lg:h-8"
+                      className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
                     />
                   ) : (
                     <div className="text-white scale-50 sm:scale-75 md:scale-100">
@@ -353,7 +353,7 @@ export default function ToolsGrid() {
                   handleLike(tool.id);
                 }}
                 disabled={likeMutation.isPending}
-                className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-0 group-hover:opacity-100 touch-manipulation"
+                className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 touch-manipulation"
               >
                 <Heart className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-2 transition-all duration-300 stroke-red-500 hover:fill-red-500 ${isLiked ? 'fill-red-500' : 'fill-none'}`} />
               </button>
