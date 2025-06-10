@@ -280,7 +280,7 @@ export default function ToolsGrid() {
       likeMutation.mutate(toolId);
     },
     [likeMutation],
-  );</old_str>
+  );
 
   const getToolDisplayConfig = useCallback((toolName: string): ToolDisplay => {
     return (
@@ -303,7 +303,7 @@ export default function ToolsGrid() {
       return serverLike?.liked || false;
     },
     [userLikes, likedTools],
-  );</old_str>
+  );
 
   useEffect(() => {
     // Simple animation trigger when tools are loaded
