@@ -81,7 +81,7 @@ const getToolConfig = (toolName: string): ToolDisplay => {
       name: "Replit",
       gradientFrom: "from-orange-400",
       gradientTo: "to-pink-500",
-      brandIcon: "https://replit.com/public/icons/favicon-196.png",
+      brandIcon: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Repl.it_logo.svg",
     },
     "Lovable": {
       name: "Lovable",
@@ -93,7 +93,7 @@ const getToolConfig = (toolName: string): ToolDisplay => {
       name: "Canva",
       gradientFrom: "from-purple-500",
       gradientTo: "to-violet-600",
-      brandIcon: "https://static.canva.com/web/images/favicon.ico",
+      brandIcon: "https://upload.wikimedia.org/wikipedia/commons/0/08/Canva_icon_2021.svg",
     },
     "Figma": {
       name: "Figma",
