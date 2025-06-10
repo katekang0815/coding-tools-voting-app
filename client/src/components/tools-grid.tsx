@@ -51,7 +51,7 @@ const getToolConfig = (toolName: string): ToolDisplay => {
       name: "Claude",
       gradientFrom: "from-orange-500",
       gradientTo: "to-red-600",
-      brandIcon: "https://claude.ai/favicon.ico",
+      brandIcon: "https://avatars.githubusercontent.com/u/142012876?s=280&v=4",
     },
     "Gemini": {
       name: "Gemini",
@@ -63,7 +63,7 @@ const getToolConfig = (toolName: string): ToolDisplay => {
       name: "Copilot",
       gradientFrom: "from-blue-600",
       gradientTo: "to-indigo-700",
-      brandIcon: "https://github.githubassets.com/assets/copilot-logo-fb8c88c71feb.png",
+      brandIcon: "https://github.githubassets.com/images/modules/site/copilot/copilot.png",
     },
     "Cursor": {
       name: "Cursor",
@@ -81,7 +81,7 @@ const getToolConfig = (toolName: string): ToolDisplay => {
       name: "Replit",
       gradientFrom: "from-orange-400",
       gradientTo: "to-pink-500",
-      brandIcon: "https://replit.com/favicon.ico",
+      brandIcon: "https://replit.com/public/icons/favicon-196.png",
     },
     "Lovable": {
       name: "Lovable",
