@@ -341,7 +341,7 @@ export default function ToolsGrid() {
               <div className="flex flex-col items-center">
                 <div
                   className={`tool-icon w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3 md:mb-4`}
-                ></div>
+                >
                   {displayConfig.brandIcon ? (
                     <img
                       src={displayConfig.brandIcon}
