@@ -371,7 +371,7 @@ export default function ToolsGrid() {
                   transition-transform duration-300
                   hover:scale-110
                   disabled:opacity-50
-                  opacity-80 sm:opacity-0 sm:group-hover:opacity-100
+                  opacity-0 group-hover:opacity-100
                 "
               >
                 <Heart
