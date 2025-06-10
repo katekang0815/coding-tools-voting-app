@@ -353,7 +353,7 @@ export default function ToolsGrid() {
                   handleLike(tool.id);
                 }}
                 disabled={likeMutation.isPending}
-                className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 touch-manipulation bg-green-800"
+                className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-0 group-hover:opacity-100 touch-manipulation"
               >
                 <Heart className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-2 transition-all duration-300  stroke-red-500 hover:fill-red-500 bg-amber-800"/>
               </button>
