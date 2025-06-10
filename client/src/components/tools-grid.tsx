@@ -224,7 +224,7 @@ export default function ToolsGrid() {
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ["/api/tools"] });
         queryClient.invalidateQueries({
-          queryKey: ["/api/tools/likes", actualUserId],
+          queryKey: [`/api/tools/likes/${actualUserId}`, actualUserId],
         });
       }, 100);
     },
@@ -323,7 +323,6 @@ export default function ToolsGrid() {
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
         const isLiked = isToolLiked(tool.id);
-        console.log(`Tool ${tool.name} (ID: ${tool.id}): isLiked = ${isLiked}, userLikes:`, userLikes);
         return (
           <div
             key={tool.name}
