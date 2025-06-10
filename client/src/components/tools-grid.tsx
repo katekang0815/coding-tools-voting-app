@@ -364,15 +364,14 @@ export default function ToolsGrid() {
                   handleLike(tool.id);
                 }}
                 disabled={likeMutation.isPending}
-                className="
-                  absolute -top-1 -right-1
+                className={`
+                  absolute -top-1 -right-1 sm:-top-2 sm:-right-2 
                   w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8
                   flex items-center justify-center
-                  transition-transform duration-300
-                  hover:scale-110
+                  transition-transform duration-300 hover:scale-110
                   disabled:opacity-50
-                  opacity-80 sm:opacity-0 sm:group-hover:opacity-100
-                "
+                  ${isLiked ? "opacity-100" : "opacity-0"}
+                `}
               >
                 <Heart
                   className={`
