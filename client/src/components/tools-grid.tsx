@@ -326,7 +326,7 @@ export default function ToolsGrid() {
             key={tool.name}
             className="tool-item flex flex-col items-center group opacity-100"
           >
-            <div className="relative p-3 sm:p-4 md:p-5 lg:p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300 w-full pl-[30px] pr-[30px]">
+            <div className="relative p-3 sm:p-4 md:p-5 lg:p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300 w-full pl-[26px] pr-[26px]">
               <div className="flex flex-col items-center">
                 <div
                   className={`tool-icon w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3`}
