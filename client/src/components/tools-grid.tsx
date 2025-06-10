@@ -305,8 +305,8 @@ export default function ToolsGrid() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-12 max-w-xs sm:max-w-lg md:max-w-2xl mx-auto relative z-10 px-4">
         {Array.from({ length: 10 }).map((_, index) => (
           <div key={index} className="flex flex-col items-center">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-gray-700 animate-pulse mb-2 sm:mb-3"></div>
-            <div className="w-8 sm:w-10 md:w-12 h-2 sm:h-2.5 md:h-3 bg-gray-700 animate-pulse rounded"></div>
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 rounded-full bg-gray-700 animate-pulse mb-2 sm:mb-3 md:mb-4"></div>
+            <div className="w-8 sm:w-10 md:w-12 lg:w-14 xl:w-16 h-2 sm:h-2.5 md:h-3 lg:h-3.5 xl:h-4 bg-gray-700 animate-pulse rounded"></div>
           </div>
         ))}
       </div>
@@ -327,7 +327,7 @@ export default function ToolsGrid() {
   return (
     <div
       ref={gridRef}
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-xs sm:max-w-lg md:max-w-2xl mx-auto relative z-10 p-4 sm:p-6 md:p-8 rounded-2xl"
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto relative z-10 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 rounded-2xl"
     >
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
@@ -340,21 +340,21 @@ export default function ToolsGrid() {
             <div className="relative p-3 sm:p-4 md:p-5 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300 w-full">
               <div className="flex flex-col items-center">
                 <div
-                  className={`tool-icon w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3`}
-                >
+                  className={`tool-icon w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3 md:mb-4`}
+                ></div>
                   {displayConfig.brandIcon ? (
                     <img
                       src={displayConfig.brandIcon}
                       alt={`${tool.name} icon`}
-                      className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
+                      className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8"
                     />
                   ) : (
-                    <div className="text-white scale-50 sm:scale-75 md:scale-100">
+                    <div className="text-white scale-50 sm:scale-75 md:scale-100 lg:scale-110 xl:scale-125">
                       {displayConfig.icon}
                     </div>
                   )}
                 </div>
-                <span className="text-xs sm:text-xs md:text-sm font-medium text-white group-hover:text-gray-200 transition-colors duration-300 text-center leading-tight">
+                <span className="text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg font-medium text-white group-hover:text-gray-200 transition-colors duration-300 text-center leading-tight">
                   {tool.name}
                 </span>
               </div>
@@ -366,7 +366,7 @@ export default function ToolsGrid() {
                 disabled={likeMutation.isPending}
                 className={`
                   absolute -top-1 -right-1 sm:-top-2 sm:-right-2
-                  w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8
+                  w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10
                   flex items-center justify-center
                   transition-transform duration-300 hover:scale-110
                   disabled:opacity-50
@@ -378,7 +378,7 @@ export default function ToolsGrid() {
               >
                 <Heart
                   className={`
-                    w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6
+                    w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8
                     stroke-2 transition-all duration-300
                     ${isLiked
                       ? "fill-red-500 stroke-red-500"
@@ -387,7 +387,7 @@ export default function ToolsGrid() {
                 />
               </button>
               {tool.likeCount > 0 && (
-                <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 bg-gray-500/50 text-green-400 text-xs sm:text-sm md:text-base rounded-full w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex items-center justify-center font-bold transition-all duration-300">
+                <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 bg-gray-500/50 text-green-400 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl rounded-full w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 flex items-center justify-center font-bold transition-all duration-300">
                   {tool.likeCount}
                 </div>
               )}

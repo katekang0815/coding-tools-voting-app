@@ -162,8 +162,8 @@ export default function HeroSection() {
         <div className="mb-8 sm:mb-12 md:mb-16">
         {/* deleted H1 */}
        
-          <div className="mb-6 sm:mb-8 max-w-4xl mx-auto h-12 sm:h-14 md:h-16 flex items-center justify-center px-4">
-            <div className="text-base sm:text-lg md:text-xl lg:text-2xl gradient-text leading-relaxed">
+          <div className="mb-6 sm:mb-8 max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto h-12 sm:h-14 md:h-16 lg:h-18 xl:h-20 flex items-center justify-center px-4">
+            <div className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl gradient-text leading-relaxed">
               <span id="typing-text"></span>
             </div>
           </div>
@@ -175,7 +175,7 @@ export default function HeroSection() {
             {/* Email Subscription Form */}
             <form
               onSubmit={handleEmailSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-md w-full"
+              className="flex flex-col sm:flex-row gap-3 max-w-md lg:max-w-lg xl:max-w-xl w-full"
             >
               <div className="relative flex-1">
                 <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
