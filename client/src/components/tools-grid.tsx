@@ -1,30 +1,9 @@
 import { useEffect, useRef, useState, useCallback, memo } from "react";
-import {
-  Code,
-  Zap,
-  TreePine,
-  Palette,
-  Heart,
-  RefreshCw,
-  Pointer,
-  Terminal,
-  Circle,
-  Square,
-  Layers,
-  MessageSquare,
-  Wind,
-} from "lucide-react";
+import { Circle, Heart } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import type { Tool } from "@shared/schema";
-
-interface ToolDisplay {
-  name: string;
-  icon: JSX.Element;
-  gradientFrom: string;
-  gradientTo: string;
-    brandIcon?: string;
-}
+import { toolDisplayConfig, type ToolDisplay } from "./tool-config";
 
 const toolDisplayConfig: ToolDisplay[] = [
   {
