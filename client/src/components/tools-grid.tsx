@@ -51,7 +51,7 @@ const getToolConfig = (toolName: string): ToolDisplay => {
       name: "Claude",
       gradientFrom: "from-orange-500",
       gradientTo: "to-red-600",
-      brandIcon: "https://avatars.githubusercontent.com/u/142012876?s=280&v=4",
+      brandIcon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7iNXqjh0pgjHO0dQko43yhy8Z4Uj4NRGAYA&s",
     },
     "Gemini": {
       name: "Gemini",
@@ -81,7 +81,7 @@ const getToolConfig = (toolName: string): ToolDisplay => {
       name: "Replit",
       gradientFrom: "from-orange-400",
       gradientTo: "to-pink-500",
-      brandIcon: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Repl.it_logo.svg",
+      brandIcon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAaVBMVEX////yYgfyXADxVwD60ML3pIbyYADzcTH4tZ70hVf5wK3zeD/xTwDxVgDxUwD84Nb+9vL828/4sJT0fkj0gk/6yLbyZRD2mXT1kWj2n3z5vKj85dz718nzbyv1i173o4HzbCP+8Or6y7ptYnHQAAACWklEQVR4nO3c727aMBSH4dihYcnslATo2PqHtvd/kaWVJu2TQ2NPP3P0vleQR8EBpHPSNERERERERERERERERDfe5rzffr9+vldf+JUNPvpuRd6Pz5P64q9pHzu3ti6c1Ze/3Ktf7fssntSApQ55wAvxh5qQ7jhmAp0Lb2pEsof1Z/Bv/pcakWrKv4XOjWpFqjn3FH4Wa/7KOJUQtoOakagvIfQ1P00RIkSoDyFChPoQIkSoDyFChPoQIkSoDyFChPoQIkSoDyFChPoQIqxf+GJe+Nu88NhaF+6CdWGRkaG6hbuxwOhe1cLmPf9zWrmwGULuXaxd2Exdm2esXni5jdsQ2/WF+oWXB860yejPXUbz+06tX24YfUZt6B/VgqWGzF9GPtypCQvlCp1re7UhXb7QtVUP/JcQuvCkVqQqIeye1YpUJYRurHnVr4jQz2pGojLCFzUjURFh91PNSIQQIUJ9CBEi1IcQIUJ9CBEi1IcQIUJ9CBEi1IcQIUJ9CBEi1IcQIUJ9zGJcJzQ/T2N+Jsr+XJv52UTz86XWZ4RvYM77Bmb1re9bWN+ZMb/3ZH53zfz+of0dUvN7wPZ3ucv8s6tZaP+dCvbfi2H/3SYIESLUhxAhQn0IESLUhxAhQn0IESLUhxAhQn0IESLUhxAhQn0IEdYvLDEw5NpBzUg0lxDGSc1INI0FhKNakeyhwOBe3WP2x/ybGN7UiHSH3JMYa36SfvWaR4wnNWC5fVx/FrtwVl/+NQ0++m5F3o/bmr8o/m1zPmy/Xz/XvFBHRERERERERERERET0X/sAPXxLpNfvdI0AAAAASUVORK5CYII=",
     },
     "Lovable": {
       name: "Lovable",
@@ -93,7 +93,7 @@ const getToolConfig = (toolName: string): ToolDisplay => {
       name: "Canva",
       gradientFrom: "from-purple-500",
       gradientTo: "to-violet-600",
-      brandIcon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/canva.svg",
+      brandIcon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbeb8FCADSu0s3ka0NPIRePMqdIUUVcjsTOg&s",
     },
     "Figma": {
       name: "Figma",
