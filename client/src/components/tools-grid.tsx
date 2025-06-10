@@ -355,7 +355,7 @@ export default function ToolsGrid() {
                 disabled={likeMutation.isPending}
                 className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 touch-manipulation"
               >
-                <Heart className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-2 transition-all duration-300 ${isLiked ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-red-500 hover:fill-red-500'}`} />
+                <Heart className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-2 transition-all duration-300 ${isLiked ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-red-500'}`} />
               </button>
               {tool.likeCount > 0 && (
                 <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 bg-gray-500/50 text-green-400 text-xs sm:text-sm md:text-base rounded-full w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex items-center justify-center font-bold transition-all duration-300">
