@@ -156,14 +156,14 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="hero-gradient min-h-screen flex items-center justify-center px-4 py-16 pt-24">
-      <div className="max-w-6xl mx-auto text-center relative z-10">
+    <section className="hero-gradient min-h-screen flex items-center justify-center px-2 sm:px-4 py-8 sm:py-12 md:py-16 pt-16 sm:pt-20 md:pt-24">
+      <div className="max-w-6xl mx-auto text-center relative z-10 w-full">
         {/* Hero Content */}
-        <div className="mb-16">
+        <div className="mb-8 sm:mb-12 md:mb-16">
         {/* deleted H1 */}
        
-          <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
-            <div className="text-xl md:text-2xl gradient-text leading-relaxed">
+          <div className="mb-6 sm:mb-8 max-w-4xl mx-auto h-12 sm:h-14 md:h-16 flex items-center justify-center px-4">
+            <div className="text-base sm:text-lg md:text-xl lg:text-2xl gradient-text leading-relaxed">
               <span id="typing-text"></span>
             </div>
           </div>
@@ -171,7 +171,7 @@ export default function HeroSection() {
 
           <ToolsGrid />
 
-          <div className="flex flex-col gap-6 items-center m-16">
+          <div className="flex flex-col gap-4 sm:gap-6 items-center mt-8 sm:mt-12 md:mt-16 px-4">
             {/* Email Subscription Form */}
             <form
               onSubmit={handleEmailSubmit}
@@ -197,14 +197,14 @@ export default function HeroSection() {
                   placeholder="Enter your email to stay updated"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 text-base bg-gray-800/50 border-gray-600/50 text-white placeholder-blue-600 rounded-lg focus:border-blue-400 focus:ring-blue-400"
+                  className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800/50 border-gray-600/50 text-white placeholder-blue-600 rounded-lg focus:border-blue-400 focus:ring-blue-400"
                   required
                 />
               </div>
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:from-green-500 hover:via-cyan-500 hover:to-blue-600 text-white px-6 py-3 font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:from-green-500 hover:via-cyan-500 hover:to-blue-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap"
               >
                 {isSubmitting ? "Submitting..." : "Subscribe"}
               </Button>
