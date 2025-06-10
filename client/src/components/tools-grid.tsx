@@ -316,8 +316,8 @@ export default function ToolsGrid() {
   return (
     <div
       ref={gridRef}
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 sm:gap-6 md:gap-8 lg:gap-12 xl:gap-16 max-w-xs sm:max-w-lg md:max-w-4xl lg:max-w-6xl xl:max-w-7xl 2xl:max-w-[90rem] mx-auto relative z-10 p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-16 rounded-2xl"
-    ></div>
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 lg:gap-12 max-w-xs sm:max-w-lg md:max-w-2xl mx-auto relative z-10 p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl"
+    >
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
         const isLiked = isToolLiked(tool.id);
@@ -355,7 +355,7 @@ export default function ToolsGrid() {
                 disabled={likeMutation.isPending}
                 className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-0 group-hover:opacity-100 touch-manipulation"
               >
-                <Heart className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-2 transition-all duration-300  stroke-red-500 hover:fill-red-500 bg-amber-800"/>
+                <Heart className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-2 transition-all duration-300 stroke-red-500 hover:fill-red-500 ${isLiked ? 'fill-red-500' : 'fill-none'}`} />
               </button>
               {tool.likeCount > 0 && (
                 <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 bg-gray-500/50 text-green-400 text-xs sm:text-sm md:text-base rounded-full w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex items-center justify-center font-bold transition-all duration-300">
