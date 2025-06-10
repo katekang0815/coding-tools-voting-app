@@ -177,13 +177,18 @@ export default function ToolsGrid() {
         actualUserId,
       ]);
 
+      // Determine current state - check both local state and server state
+      const currentServerLike = userLikes?.find((like) => like.toolId === toolId);
+      const currentLocalLike = likedTools.has(toolId);
+      
+      // The actual current state should consider local state first
+      const actualCurrentState = currentLocalLike !== undefined ? currentLocalLike : (currentServerLike?.liked || false);
+      const newLiked = !actualCurrentState;
+
       // Optimistically update likes
       queryClient.setQueryData(
         ["/api/tools/likes", actualUserId],
         (old: any[]) => {
-          const currentLike = old?.find((like) => like.toolId === toolId);
-          const newLiked = !currentLike?.liked;
-
           return (
             old?.map((like) =>
               like.toolId === toolId ? { ...like, liked: newLiked } : like,
@@ -194,8 +199,7 @@ export default function ToolsGrid() {
 
       // Optimistically update tool counts
       queryClient.setQueryData(["/api/tools"], (old: any[]) => {
-        const currentLike = userLikes?.find((like) => like.toolId === toolId);
-        const increment = currentLike?.liked ? -1 : 1;
+        const increment = actualCurrentState ? -1 : 1;
 
         return (
           old?.map((tool) =>
@@ -209,7 +213,15 @@ export default function ToolsGrid() {
       return { previousTools, previousLikes };
     },
     onError: (err, toolId, context) => {
-      // Rollback on error
+      // Rollback local state on error
+      setLikedTools((prev) => {
+        const next = new Set(prev);
+        if (next.has(toolId)) next.delete(toolId);
+        else next.add(toolId);
+        return next;
+      });
+      
+      // Rollback query cache on error
       if (context?.previousTools) {
         queryClient.setQueryData(["/api/tools"], context.previousTools);
       }
@@ -257,18 +269,18 @@ export default function ToolsGrid() {
 
   const handleLike = useCallback(
     (toolId: number) => {
-      // 1) Toggle our local UI state immediately
+      // Update local state for immediate UI feedback
       setLikedTools((prev) => {
         const next = new Set(prev);
         if (next.has(toolId)) next.delete(toolId);
         else next.add(toolId);
         return next;
       });
-      // 2) Fire off your mutation (optimistic UI)
+      // Fire off mutation with optimistic updates
       likeMutation.mutate(toolId);
     },
     [likeMutation],
-  );
+  );</old_str>
 
   const getToolDisplayConfig = useCallback((toolName: string): ToolDisplay => {
     return (
@@ -283,10 +295,15 @@ export default function ToolsGrid() {
 
   const isToolLiked = useCallback(
     (toolId: number): boolean => {
-      return userLikes.find((like) => like.toolId === toolId)?.liked || false;
+      // First check local state, then fall back to server state
+      if (likedTools.has(toolId)) {
+        return true;
+      }
+      const serverLike = userLikes.find((like) => like.toolId === toolId);
+      return serverLike?.liked || false;
     },
-    [userLikes],
-  );
+    [userLikes, likedTools],
+  );</old_str>
 
   useEffect(() => {
     // Simple animation trigger when tools are loaded
@@ -331,7 +348,7 @@ export default function ToolsGrid() {
     >
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
-        const isLiked = likedTools.has(tool.id);
+        const isLiked = isToolLiked(tool.id);
         return (
           <div
             key={tool.name}
