@@ -15,6 +15,7 @@ export interface IStorage {
   // Like operations
   toggleToolLike(userId: number, toolId: number): Promise<{ liked: boolean; newCount: number }>;
   getUserToolLike(userId: number, toolId: number): Promise<UserToolLike | undefined>;
+  resetAllLikeCounts(): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -120,6 +121,19 @@ export class DatabaseStorage implements IStorage {
       .from(userToolLikes)
       .where(and(eq(userToolLikes.userId, userId), eq(userToolLikes.toolId, toolId)));
     return like || undefined;
+  }
+
+  async resetAllLikeCounts(): Promise<void> {
+    this.checkDatabase();
+    await db.transaction(async (tx) => {
+      // Reset all tool like counts to 0
+      await tx
+        .update(tools)
+        .set({ likeCount: 0 });
+      
+      // Delete all user tool likes
+      await tx.delete(userToolLikes);
+    });
   }
 }
 
