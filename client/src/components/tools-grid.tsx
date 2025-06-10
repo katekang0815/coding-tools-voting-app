@@ -174,17 +174,18 @@ export default function ToolsGrid() {
     return newUserId;
   });
 
-  // Create user in database if needed
+  // Create user in database and get actual user ID
   const { data: userSession } = useQuery<{ userId: number; username: string }>({
-    queryKey: ["/api/user/session"],
+    queryKey: ["/api/tools/user", currentUserId],
     queryFn: async () => {
-      // Create user with the localStorage-based ID
       const response = await apiRequest("/api/tools/user", "POST", {
         tempUserId: currentUserId
       });
-      return response;
+      return (await response.json()) as { userId: number; username: string };
     }
   });
+
+  const actualUserId = userSession?.userId;
 
   // Fetch tools from database
   const {
@@ -199,19 +200,21 @@ export default function ToolsGrid() {
   const { data: userLikes = [] } = useQuery<
     Array<{ toolId: number; liked: boolean }>
   >({
-    queryKey: ["/api/tools/likes", currentUserId],
-    enabled: !!currentUserId,
+    queryKey: ["/api/tools/likes", actualUserId],
+    enabled: !!actualUserId,
   });
 
   // Like toggle mutation
   const likeMutation = useMutation({
     mutationFn: async (toolId: number) => {
-      return await apiRequest(`/api/tools/${toolId}/like`, "POST");
+      return await apiRequest(`/api/tools/${toolId}/like`, "POST", {
+        userId: actualUserId
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/tools"] });
       queryClient.invalidateQueries({
-        queryKey: ["/api/tools/likes"],
+        queryKey: ["/api/tools/likes", actualUserId],
       });
     },
   });

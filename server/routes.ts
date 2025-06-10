@@ -10,25 +10,28 @@ declare module 'express-session' {
 }
 
 export async function registerRoutes(app: Express): Promise<void> {
-  // Get or create user session
-  app.get("/api/user/session", async (req, res) => {
+  // Create or get user
+  app.post("/api/tools/user", async (req, res) => {
     try {
-      if (!req.session.userId) {
-        // Create a new anonymous user
-        const uniqueUsername = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-        const newUser = await storage.createUser({ 
-          username: uniqueUsername, 
-          password: 'anonymous' 
-        });
-        req.session.userId = newUser.id;
-        req.session.save(); // Force session save
+      const { tempUserId } = req.body;
+      
+      // Check if user already exists with this temp ID as username
+      const existingUser = await storage.getUserByUsername(`temp_${tempUserId}`);
+      if (existingUser) {
+        return res.json({ userId: existingUser.id, username: existingUser.username });
       }
       
-      const user = await storage.getUser(req.session.userId);
-      res.json({ userId: user?.id, username: user?.username });
+      // Create new user with temp ID in username
+      const uniqueUsername = `temp_${tempUserId}`;
+      const newUser = await storage.createUser({ 
+        username: uniqueUsername, 
+        password: 'anonymous' 
+      });
+      
+      res.json({ userId: newUser.id, username: newUser.username });
     } catch (error: any) {
-      console.error("Error managing user session:", error);
-      res.status(500).json({ message: "Failed to manage user session" });
+      console.error("Error creating user:", error);
+      res.status(500).json({ message: "Failed to create user" });
     }
   });
 
