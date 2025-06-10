@@ -26,13 +26,17 @@ export async function registerRoutes(app: Express): Promise<void> {
         req.session.userId = newUser.id;
         console.log("Created new user with ID:", newUser.id);
         
-        // Save session explicitly
-        req.session.save((err) => {
-          if (err) {
-            console.error("Session save error:", err);
-          } else {
-            console.log("Session saved successfully");
-          }
+        // Save session and wait for completion
+        await new Promise<void>((resolve, reject) => {
+          req.session.save((err) => {
+            if (err) {
+              console.error("Session save error:", err);
+              reject(err);
+            } else {
+              console.log("Session saved successfully");
+              resolve();
+            }
+          });
         });
       }
       
