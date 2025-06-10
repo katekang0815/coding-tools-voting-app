@@ -151,7 +151,7 @@ export default function ToolsGrid() {
   const { data: userLikes = [] } = useQuery<
     Array<{ toolId: number; liked: boolean }>
   >({
-    queryKey: ["/api/tools/likes", actualUserId],
+    queryKey: [`/api/tools/likes/${actualUserId}`, actualUserId],
     enabled: !!actualUserId,
   });
 
@@ -166,19 +166,19 @@ export default function ToolsGrid() {
       // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: ["/api/tools"] });
       await queryClient.cancelQueries({
-        queryKey: ["/api/tools/likes", actualUserId],
+        queryKey: [`/api/tools/likes/${actualUserId}`, actualUserId],
       });
 
       // Snapshot the previous values
       const previousTools = queryClient.getQueryData(["/api/tools"]);
       const previousLikes = queryClient.getQueryData([
-        "/api/tools/likes",
+        `/api/tools/likes/${actualUserId}`,
         actualUserId,
       ]);
 
       // Optimistically update likes
       queryClient.setQueryData(
-        ["/api/tools/likes", actualUserId],
+        [`/api/tools/likes/${actualUserId}`, actualUserId],
         (old: any[]) => {
           const currentLike = old?.find((like) => like.toolId === toolId);
           const newLiked = !currentLike?.liked;
@@ -214,7 +214,7 @@ export default function ToolsGrid() {
       }
       if (context?.previousLikes) {
         queryClient.setQueryData(
-          ["/api/tools/likes", actualUserId],
+          [`/api/tools/likes/${actualUserId}`, actualUserId],
           context.previousLikes,
         );
       }
@@ -323,6 +323,7 @@ export default function ToolsGrid() {
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
         const isLiked = isToolLiked(tool.id);
+        console.log(`Tool ${tool.name} (ID: ${tool.id}): isLiked = ${isLiked}, userLikes:`, userLikes);
         return (
           <div
             key={tool.name}
