@@ -13,9 +13,6 @@ export async function registerRoutes(app: Express): Promise<void> {
   // Get or create user session
   app.get("/api/user/session", async (req, res) => {
     try {
-      console.log("Session data:", req.session);
-      console.log("Current session userId:", req.session.userId);
-      
       if (!req.session.userId) {
         // Create a new anonymous user
         const uniqueUsername = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -24,20 +21,6 @@ export async function registerRoutes(app: Express): Promise<void> {
           password: 'anonymous' 
         });
         req.session.userId = newUser.id;
-        console.log("Created new user with ID:", newUser.id);
-        
-        // Save session and wait for completion
-        await new Promise<void>((resolve, reject) => {
-          req.session.save((err) => {
-            if (err) {
-              console.error("Session save error:", err);
-              reject(err);
-            } else {
-              console.log("Session saved successfully");
-              resolve();
-            }
-          });
-        });
       }
       
       const user = await storage.getUser(req.session.userId);
@@ -98,11 +81,7 @@ export async function registerRoutes(app: Express): Promise<void> {
     try {
       const toolId = parseInt(req.params.toolId);
       
-      console.log("Like request - Session data:", req.session);
-      console.log("Like request - Session userId:", req.session.userId);
-      
       if (!req.session.userId) {
-        console.log("No userId in session, returning 401");
         return res.status(401).json({ message: "User session required" });
       }
 
@@ -111,7 +90,6 @@ export async function registerRoutes(app: Express): Promise<void> {
       }
 
       const result = await storage.toggleToolLike(req.session.userId, toolId);
-      console.log("Toggle like result:", result);
       res.json(result);
     } catch (error: any) {
       console.error("Error toggling tool like:", error);

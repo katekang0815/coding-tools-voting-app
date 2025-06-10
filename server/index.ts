@@ -11,12 +11,9 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
   saveUninitialized: true,
-  name: 'sessionId',
   cookie: {
     secure: false, // Set to true in production with HTTPS
-    httpOnly: true,
-    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    sameSite: 'lax'
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   }
 }));
 

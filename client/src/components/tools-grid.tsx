@@ -1,5 +1,19 @@
 import { useEffect, useRef, useState, useCallback, memo } from "react";
-import { Circle, Heart, MessageSquare, Sparkles, Layers, Code, Pointer, Wind, RefreshCw, Palette, Square } from "lucide-react";
+import {
+  Code,
+  Zap,
+  TreePine,
+  Palette,
+  Heart,
+  RefreshCw,
+  Pointer,
+  Terminal,
+  Circle,
+  Square,
+  Layers,
+  MessageSquare,
+  Wind,
+} from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import type { Tool } from "@shared/schema";
@@ -9,111 +23,81 @@ interface ToolDisplay {
   icon: JSX.Element;
   gradientFrom: string;
   gradientTo: string;
-  brandIcon?: string;
+    brandIcon?: string;
 }
 
-const getToolIcon = (toolName: string): JSX.Element => {
-  switch (toolName) {
-    case "ChatGPT":
-      return <MessageSquare className="w-8 h-8 text-white" />;
-    case "Claude":
-      return <Sparkles className="w-8 h-8 text-white" />;
-    case "Gemini":
-      return <Layers className="w-8 h-8 text-white" />;
-    case "Copilot":
-      return <Code className="w-8 h-8 text-white" />;
-    case "Cursor":
-      return <Pointer className="w-8 h-8 text-white" />;
-    case "Windsurf":
-      return <Wind className="w-8 h-8 text-white" />;
-    case "Replit":
-      return <RefreshCw className="w-8 h-8 text-white" />;
-    case "Lovable":
-      return <Heart className="w-8 h-8 text-white" />;
-    case "Canva":
-      return <Palette className="w-8 h-8 text-white" />;
-    case "Figma":
-      return <Square className="w-8 h-8 text-white" />;
-    default:
-      return <Circle className="w-8 h-8 text-white" />;
-  }
-};
-
-const getToolConfig = (toolName: string): ToolDisplay => {
-  const configs: Record<string, Omit<ToolDisplay, 'icon'>> = {
-    "ChatGPT": {
-      name: "ChatGPT",
-      gradientFrom: "from-green-500",
-      gradientTo: "to-green-700",
-      brandIcon: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-    },
-    "Claude": {
-      name: "Claude",
-      gradientFrom: "from-orange-500",
-      gradientTo: "to-red-600",
-      brandIcon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7iNXqjh0pgjHO0dQko43yhy8Z4Uj4NRGAYA&s",
-    },
-    "Gemini": {
-      name: "Gemini",
-      gradientFrom: "from-blue-500",
-      gradientTo: "to-purple-600",
-      brandIcon: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg",
-    },
-    "Copilot": {
-      name: "Copilot",
-      gradientFrom: "from-blue-600",
-      gradientTo: "to-indigo-700",
-      brandIcon: "https://github.githubassets.com/images/modules/site/copilot/copilot.png",
-    },
-    "Cursor": {
-      name: "Cursor",
-      gradientFrom: "from-cyan-500",
-      gradientTo: "to-blue-600",
-      brandIcon: "https://cursor.sh/favicon.ico",
-    },
-    "Windsurf": {
-      name: "Windsurf",
-      gradientFrom: "from-teal-400",
-      gradientTo: "to-blue-500",
-      brandIcon: "https://windsurf.ai/favicon.ico",
-    },
-    "Replit": {
-      name: "Replit",
-      gradientFrom: "from-orange-400",
-      gradientTo: "to-pink-500",
-      brandIcon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAaVBMVEX////yYgfyXADxVwD60ML3pIbyYADzcTH4tZ70hVf5wK3zeD/xTwDxVgDxUwD84Nb+9vL828/4sJT0fkj0gk/6yLbyZRD2mXT1kWj2n3z5vKj85dz718nzbyv1i173o4HzbCP+8Or6y7ptYnHQAAACWklEQVR4nO3c727aMBSH4dihYcnslATo2PqHtvd/kaWVJu2TQ2NPP3P0vleQR8EBpHPSNERERERERERERERERDfe5rzffr9+vldf+JUNPvpuRd6Pz5P64q9pHzu3ti6c1Ze/3Ktf7fssntSApQ55wAvxh5qQ7jhmAp0Lb2pEsof1Z/Bv/pcakWrKv4XOjWpFqjn3FH4Wa/7KOJUQtoOakagvIfQ1P00RIkSoDyFChPoQIkSoDyFChPoQIkSoDyFChPoQIkSoDyFChPoQIqxf+GJe+Nu88NhaF+6CdWGRkaG6hbuxwOhe1cLmPf9zWrmwGULuXaxd2Exdm2esXni5jdsQ2/WF+oWXB860yejPXUbz+06tX24YfUZt6B/VgqWGzF9GPtypCQvlCp1re7UhXb7QtVUP/JcQuvCkVqQqIeye1YpUJYRurHnVr4jQz2pGojLCFzUjURFh91PNSIQQIUJ9CBEi1IcQIUJ9CBEi1IcQIUJ9CBEi1IcQIUJ9CBEi1IcQIUJ9zGJcJzQ/T2N+Jsr+XJv52UTz86XWZ4RvYM77Bmb1re9bWN+ZMb/3ZH53zfz+of0dUvN7wPZ3ucv8s6tZaP+dCvbfi2H/3SYIESLUhxAhQn0IESLUhxAhQn0IESLUhxAhQn0IESLUhxAhQn0IEdYvLDEw5NpBzUg0lxDGSc1INI0FhKNakeyhwOBe3WP2x/ybGN7UiHSH3JMYa36SfvWaR4wnNWC5fVx/FrtwVl/+NQ0++m5F3o/bmr8o/m1zPmy/Xz/XvFBHRERERERERERERET0X/sAPXxLpNfvdI0AAAAASUVORK5CYII=",
-    },
-    "Lovable": {
-      name: "Lovable",
-      gradientFrom: "from-pink-500",
-      gradientTo: "to-rose-600",
-      brandIcon: "https://lovable.dev/favicon.ico",
-    },
-    "Canva": {
-      name: "Canva",
-      gradientFrom: "from-purple-500",
-      gradientTo: "to-violet-600",
-      brandIcon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbeb8FCADSu0s3ka0NPIRePMqdIUUVcjsTOg&s",
-    },
-    "Figma": {
-      name: "Figma",
-      gradientFrom: "from-red-500",
-      gradientTo: "to-purple-600",
-      brandIcon: "https://static.figma.com/app/icon/1/favicon.ico",
-    },
-  };
-
-  const config = configs[toolName] || {
-    name: toolName,
-    gradientFrom: "from-gray-500",
-    gradientTo: "to-gray-600",
-  };
-
-  return {
-    ...config,
-    icon: getToolIcon(toolName),
-  };
-};
+const toolDisplayConfig: ToolDisplay[] = [
+  {
+    name: "ChatGPT",
+    icon: <MessageSquare className="w-8 h-8 text-white" />,
+    gradientFrom: "from-green-500", // OpenAI brand green
+    gradientTo: "to-green-700",
+    brandIcon: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+  },
+  {
+    name: "Copilot",
+    icon: <Zap className="w-8 h-8 text-white" />,
+    gradientFrom: "from-blue-600", // GitHub blue
+    gradientTo: "to-indigo-700",
+    brandIcon: "https://github.githubassets.com/images/modules/site/copilot/copilot.png",
+  },
+  {
+    name: "Canva",
+    icon: <TreePine className="w-8 h-8 text-white" />,
+    gradientFrom: "from-purple-500", // Canva purple
+    gradientTo: "to-violet-600",
+    brandIcon: "data:image/jpeg;base64,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",
+  },
+  {
+    name: "Claude",
+    icon: <Palette className="w-8 h-8 text-white" />,
+    gradientFrom: "from-orange-500", // Anthropic orange
+    gradientTo: "to-orange-700",
+    brandIcon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCIZYpPXuiY_Dw0M0ffBoN8X8zsUKVvPsn8mAUb_t5zWUKXtrCMWzyYwU&s", // Using your provided AI logo
+  },
+  {
+    name: "Lovable",
+    icon: <Heart className="w-8 h-8 text-white" />,
+    gradientFrom: "from-pink-500", // Lovable pink/magenta
+    gradientTo: "to-rose-600",
+    brandIcon: "https://lovable.dev/favicon.ico",
+  },
+  {
+    name: "Replit",
+    icon: <Terminal className="w-8 h-8 text-white" />,
+    gradientFrom: "from-orange-400", // Replit orange
+    gradientTo: "to-red-500",
+    brandIcon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-HnpgESCXTePDDnjoCQ62_tcBT0_2NFygWhY-9irhL0-I2SPB_LS6GE0&s",
+  },
+  {
+    name: "Figma",
+    icon: <Square className="w-8 h-8 text-white" />,
+    gradientFrom: "from-red-500", // Figma red
+    gradientTo: "to-purple-600", // with purple accent
+    brandIcon: "https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg",
+  },
+  {
+    name: "Cursor",
+    icon: <Pointer className="w-8 h-8 text-white" />,
+    gradientFrom: "from-blue-500", // Cursor blue
+    gradientTo: "to-cyan-600",
+    brandIcon: "data:image/jpeg;base64,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",
+  },
+  {
+    name: "Windsurf",
+    icon: <Wind className="w-8 h-8 text-white" />,
+    gradientFrom: "from-teal-400", // Windsurf teal/aqua
+    gradientTo: "to-blue-500",
+    brandIcon: "https://windsurf.ai/favicon.ico",
+  },
+  {
+    name: "Gemini",
+    icon: <Layers className="w-8 h-8 text-white" />,
+    gradientFrom: "from-blue-500", // Google blue
+    gradientTo: "to-purple-600", // with purple gradient
+    brandIcon: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg",
+  },
+];
 
 // Memoized ToolItem component to prevent unnecessary re-renders
 const ToolItem = memo(({ 
@@ -131,22 +115,22 @@ const ToolItem = memo(({
 }) => {
   return (
     <div className="tool-item flex flex-col items-center group opacity-100">
-      <div className="relative p-3 sm:p-4 md:p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300">
+      <div className="relative p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300">
         <div className="flex flex-col items-center">
           <div
-            className={`tool-icon w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3`}
+            className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-3`}
           >
             {displayConfig.brandIcon ? (
               <img
                 src={displayConfig.brandIcon}
                 alt={`${tool.name} icon`}
-                className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8"
+                className="w-8 h-8"
               />
             ) : (
               displayConfig.icon
             )}
           </div>
-          <span className="text-xs sm:text-sm font-medium text-white group-hover:text-gray-200 transition-colors duration-300 text-center leading-tight">
+          <span className="text-xs md:text-sm font-medium text-white group-hover:text-gray-200 transition-colors duration-300 text-center">
             {tool.name}
           </span>
         </div>
@@ -156,16 +140,16 @@ const ToolItem = memo(({
             onLike(tool.id);
           }}
           disabled={isLikePending}
-          className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-0 group-hover:opacity-100"
+          className="absolute -top-2 -right-2 w-8 h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-0 group-hover:opacity-100"
         >
-          <Heart className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 stroke-2 transition-all duration-300 ${
+          <Heart className={`w-6 h-6 stroke-2 transition-all duration-300 ${
             isLiked 
               ? "fill-red-500 stroke-red-500 text-red-500" 
               : "fill-none stroke-red-500 hover:fill-red-500"
           }`} />
         </button>
         {tool.likeCount > 0 && (
-          <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 bg-gray-500/50 text-green-400 text-xs sm:text-sm md:text-base rounded-full w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center font-bold transition-all duration-300">
+          <div className="absolute -bottom-2 -right-2 bg-gray-500/50 text-green-400 text-base rounded-full w-8 h-8 flex items-center justify-center font-bold transition-all duration-300">
             {tool.likeCount}
           </div>
         )}
@@ -203,10 +187,6 @@ export default function ToolsGrid() {
   // Like toggle mutation
   const likeMutation = useMutation({
     mutationFn: async (toolId: number) => {
-      // Ensure session exists before making like request
-      if (!userSession?.userId) {
-        throw new Error("User session not established");
-      }
       return await apiRequest(`/api/tools/${toolId}/like`, "POST");
     },
     onSuccess: () => {
@@ -235,9 +215,8 @@ export default function ToolsGrid() {
   useEffect(() => {
     if (tools.length === 0 && !isLoading && !seeded) {
       setSeeded(true);
-      const toolNames = ["ChatGPT", "Claude", "Gemini", "Copilot", "Cursor", "Windsurf", "Replit", "Lovable", "Canva", "Figma"];
-      toolNames.forEach((toolName) => {
-        seedMutation.mutate(toolName);
+      toolDisplayConfig.forEach((tool) => {
+        seedMutation.mutate(tool.name);
       });
     }
   }, [tools.length, isLoading, seeded, seedMutation]);
@@ -245,6 +224,17 @@ export default function ToolsGrid() {
   const handleLike = useCallback((toolId: number) => {
     likeMutation.mutate(toolId);
   }, [likeMutation]);
+
+  const getToolDisplayConfig = useCallback((toolName: string): ToolDisplay => {
+    return (
+      toolDisplayConfig.find((config) => config.name === toolName) || {
+        name: toolName,
+        icon: <Circle className="w-8 h-8 text-white" />,
+        gradientFrom: "from-gray-500",
+        gradientTo: "to-gray-600",
+      }
+    );
+  }, []);
 
   const isToolLiked = useCallback((toolId: number): boolean => {
     return userLikes.find((like) => like.toolId === toolId)?.liked || false;
@@ -262,21 +252,29 @@ export default function ToolsGrid() {
     }
   }, [tools.length]);
 
-  // Sort tools by like count (descending)
-  const sortedTools = [...tools].sort((a, b) => b.likeCount - a.likeCount);
-
   if (isLoading) {
     return (
-      <div className="grid grid-cols-4 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10 p-10 rounded-2xl">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="flex flex-col items-center">
-            <div className="w-16 h-16 md:w-20 md:h-20 bg-gray-800 rounded-full animate-pulse mb-3"></div>
-            <div className="w-12 h-3 bg-gray-800 rounded animate-pulse"></div>
+      <div className="grid grid-cols-5 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <div key={index} className="flex flex-col items-center">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gray-700 animate-pulse mb-3"></div>
+            <div className="w-12 h-3 bg-gray-700 animate-pulse rounded"></div>
           </div>
         ))}
       </div>
     );
   }
+
+  // Sort tools by their predefined order to maintain consistent positioning
+  const sortedTools = [...tools].sort((a, b) => {
+    const orderA = toolDisplayConfig.findIndex(
+      (config) => config.name === a.name,
+    );
+    const orderB = toolDisplayConfig.findIndex(
+      (config) => config.name === b.name,
+    );
+    return orderA - orderB;
+  });
 
   return (
     <div
@@ -284,17 +282,53 @@ export default function ToolsGrid() {
       className="grid grid-cols-4 gap-8 md:gap-12 max-w-2xl mx-auto relative z-10 p-10 rounded-2xl"
     >
       {sortedTools.map((tool) => {
-        const displayConfig = getToolConfig(tool.name);
+        const displayConfig = getToolDisplayConfig(tool.name);
         const isLiked = isToolLiked(tool.id);
         return (
-          <ToolItem
-            key={tool.id}
-            tool={tool}
-            displayConfig={displayConfig}
-            isLiked={isLiked}
-            onLike={handleLike}
-            isLikePending={likeMutation.isPending}
-          />
+          <div
+            key={tool.name}
+            className="tool-item flex flex-col items-center group opacity-100"
+          >
+            <div className="relative p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300">
+              <div className="flex flex-col items-center">
+                <div
+                  className={`tool-icon w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-3`}
+                >
+                  {displayConfig.brandIcon ? (
+                    <img
+                      src={displayConfig.brandIcon}
+                      alt={`${tool.name} icon`}
+                      className="w-8 h-8"
+                    />
+                  ) : (
+                    displayConfig.icon
+                  )}
+                </div>
+                <span className="text-xs md:text-sm font-medium text-white group-hover:text-gray-200 transition-colors duration-300 text-center">
+                  {tool.name}
+                </span>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleLike(tool.id);
+                }}
+                disabled={likeMutation.isPending}
+                className="absolute -top-2 -right-2 w-8 h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110 disabled:opacity-50 opacity-0 group-hover:opacity-100"
+              >
+                <Heart className={`w-6 h-6 stroke-2 transition-all duration-300 ${
+                  isLiked 
+                    ? "fill-red-500 stroke-red-500 text-red-500" 
+                    : "fill-none stroke-red-500 hover:fill-red-500"
+                }`} />
+              </button>
+              {tool.likeCount > 0 && (
+                <div className="absolute -bottom-2 -right-2 bg-gray-500/50 text-green-400 text-base rounded-full w-8 h-8 flex items-center justify-center font-bold transition-all duration-300">
+                  {tool.likeCount}
+                </div>
+              )}
+            </div>
+          </div>
         );
       })}
     </div>

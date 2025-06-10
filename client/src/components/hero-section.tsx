@@ -115,8 +115,8 @@ export default function HeroSection() {
 
       // Handle "Vote!" text with shake animation and larger size
       if (currentText === "Vote!") {
-        typingElement!.classList.add("text-xl", "sm:text-2xl", "md:text-3xl", "lg:text-4xl", "font-bold", "gradient-text");
-        typingElement!.classList.remove("text-base", "sm:text-lg", "md:text-xl", "lg:text-2xl", "text-blue-400");
+        typingElement!.classList.add("text-3xl", "md:text-4xl", "font-bold", "gradient-text");
+        typingElement!.classList.remove("text-xl", "md:text-2xl", "text-blue-400");
         
         // Only add shake when "Vote!" is fully typed
         if (!isDeleting && currentCharIndex === currentText.length) {
@@ -135,7 +135,7 @@ export default function HeroSection() {
       } else {
         // Remove shake and reset size for other text
         typingElement!.classList.remove("animate-shake", "text-3xl", "md:text-4xl", "font-bold");
-        typingElement!.classList.add("text-base", "sm:text-lg", "md:text-xl", "lg:text-2xl", "gradient-text");
+        typingElement!.classList.add("text-xl", "md:text-2xl", "gradient-text");
       }
 
       let typeSpeed = isDeleting ? 50 : 100;
@@ -156,14 +156,14 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="hero-gradient min-h-screen flex items-center justify-center px-2 sm:px-4 py-8 sm:py-16 pt-16 sm:pt-24">
-      <div className="max-w-6xl mx-auto text-center relative z-10 w-full">
+    <section className="hero-gradient min-h-screen flex items-center justify-center px-4 py-16 pt-24">
+      <div className="max-w-6xl mx-auto text-center relative z-10">
         {/* Hero Content */}
         <div className="mb-16">
         {/* deleted H1 */}
        
-          <div className="mb-4 sm:mb-6 md:mb-8 max-w-4xl mx-auto h-12 sm:h-14 md:h-16 flex items-center justify-center px-2">
-            <div className="text-base sm:text-lg md:text-xl lg:text-2xl gradient-text leading-relaxed">
+          <div className="mb-8 max-w-4xl mx-auto h-16 flex items-center justify-center">
+            <div className="text-xl md:text-2xl gradient-text leading-relaxed">
               <span id="typing-text"></span>
             </div>
           </div>
@@ -171,18 +171,17 @@ export default function HeroSection() {
 
           <ToolsGrid />
 
-          <div className="flex flex-col gap-4 sm:gap-6 items-center m-4 sm:m-8 md:m-16">
+          <div className="flex flex-col gap-6 items-center m-16">
             {/* Email Subscription Form */}
             <form
               onSubmit={handleEmailSubmit}
-              className="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-md w-full px-2 sm:px-0"
+              className="flex flex-col sm:flex-row gap-3 max-w-md w-full"
             >
               <div className="relative flex-1">
-                <div className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500">
                   <svg
-                    width="16"
-                    height="16"
-                    className="sm:w-5 sm:h-5"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -198,14 +197,14 @@ export default function HeroSection() {
                   placeholder="Enter your email to stay updated"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2 sm:py-3 text-sm sm:text-base bg-gray-800/50 border-gray-600/50 text-white placeholder-blue-600 rounded-lg focus:border-blue-400 focus:ring-blue-400"
+                  className="w-full pl-12 pr-4 py-3 text-base bg-gray-800/50 border-gray-600/50 text-white placeholder-blue-600 rounded-lg focus:border-blue-400 focus:ring-blue-400"
                   required
                 />
               </div>
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:from-green-500 hover:via-cyan-500 hover:to-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 hover:from-green-500 hover:via-cyan-500 hover:to-blue-600 text-white px-6 py-3 font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 {isSubmitting ? "Submitting..." : "Subscribe"}
               </Button>
