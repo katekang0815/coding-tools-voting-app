@@ -211,11 +211,56 @@ export default function ToolsGrid() {
         userId: actualUserId
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/tools"] });
-      queryClient.invalidateQueries({
-        queryKey: ["/api/tools/likes", actualUserId],
+    onMutate: async (toolId: number) => {
+      // Cancel any outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ["/api/tools"] });
+      await queryClient.cancelQueries({ queryKey: ["/api/tools/likes", actualUserId] });
+
+      // Snapshot the previous values
+      const previousTools = queryClient.getQueryData(["/api/tools"]);
+      const previousLikes = queryClient.getQueryData(["/api/tools/likes", actualUserId]);
+
+      // Optimistically update likes
+      queryClient.setQueryData(["/api/tools/likes", actualUserId], (old: any[]) => {
+        const currentLike = old?.find(like => like.toolId === toolId);
+        const newLiked = !currentLike?.liked;
+        
+        return old?.map(like => 
+          like.toolId === toolId 
+            ? { ...like, liked: newLiked }
+            : like
+        ) || [];
       });
+
+      // Optimistically update tool counts
+      queryClient.setQueryData(["/api/tools"], (old: any[]) => {
+        const currentLike = userLikes?.find(like => like.toolId === toolId);
+        const increment = currentLike?.liked ? -1 : 1;
+        
+        return old?.map(tool => 
+          tool.id === toolId 
+            ? { ...tool, likeCount: Math.max(0, tool.likeCount + increment) }
+            : tool
+        ) || [];
+      });
+
+      return { previousTools, previousLikes };
+    },
+    onError: (err, toolId, context) => {
+      // Rollback on error
+      if (context?.previousTools) {
+        queryClient.setQueryData(["/api/tools"], context.previousTools);
+      }
+      if (context?.previousLikes) {
+        queryClient.setQueryData(["/api/tools/likes", actualUserId], context.previousLikes);
+      }
+    },
+    onSettled: () => {
+      // Refetch to ensure data is up to date, but only if needed
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ["/api/tools"] });
+        queryClient.invalidateQueries({ queryKey: ["/api/tools/likes", actualUserId] });
+      }, 100);
     },
   });
 
