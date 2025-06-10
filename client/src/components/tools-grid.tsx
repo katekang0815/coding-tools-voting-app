@@ -110,7 +110,7 @@ const toolDisplayConfig: ToolDisplay[] = [
 export default function ToolsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
-  
+
   // Keep track of which tool IDs are "liked" locally for immediate UI feedback
   const [likedTools, setLikedTools] = useState<Set<number>>(new Set());
 
@@ -337,7 +337,7 @@ export default function ToolsGrid() {
             key={tool.name}
             className="tool-item flex flex-col items-center group opacity-100"
           >
-            <div className="relative p-3 sm:p-4 md:p-5 2xl:px-8 2xl:py-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300 w-full">
+            <div className="relative p-3 sm:p-4 md:p-5 2xl:px-18 2xl:py-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300 w-full">
               <div className="flex flex-col items-center">
                 <div
                   className={`tool-icon w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3 md:mb-4 2xl:mb-6`}
@@ -380,9 +380,11 @@ export default function ToolsGrid() {
                   className={`
                     w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10
                     stroke-2 transition-all duration-300
-                    ${isLiked
-                      ? "fill-red-500 stroke-red-500"
-                      : "fill-none stroke-red-500"}
+                    ${
+                      isLiked
+                        ? "fill-red-500 stroke-red-500"
+                        : "fill-none stroke-red-500"
+                    }
                   `}
                 />
               </button>
