@@ -21,6 +21,7 @@ export async function registerRoutes(app: Express): Promise<void> {
           password: 'anonymous' 
         });
         req.session.userId = newUser.id;
+        req.session.save(); // Force session save
       }
       
       const user = await storage.getUser(req.session.userId);
@@ -76,20 +77,17 @@ export async function registerRoutes(app: Express): Promise<void> {
     }
   });
 
-  // Toggle like for a tool (uses session-based user identification)
+  // Toggle like for a tool (uses user ID from request)
   app.post("/api/tools/:toolId/like", async (req, res) => {
     try {
       const toolId = parseInt(req.params.toolId);
-      
-      if (!req.session.userId) {
-        return res.status(401).json({ message: "User session required" });
+      const { userId } = req.body;
+
+      if (!userId || !toolId) {
+        return res.status(400).json({ message: "User ID and Tool ID are required" });
       }
 
-      if (!toolId) {
-        return res.status(400).json({ message: "Tool ID is required" });
-      }
-
-      const result = await storage.toggleToolLike(req.session.userId, toolId);
+      const result = await storage.toggleToolLike(userId, toolId);
       res.json(result);
     } catch (error: any) {
       console.error("Error toggling tool like:", error);
@@ -101,18 +99,15 @@ export async function registerRoutes(app: Express): Promise<void> {
     }
   });
 
-  // Get current user's like status for tools (session-based)
-  app.get("/api/tools/likes", async (req, res) => {
+  // Get user's like status for tools
+  app.get("/api/tools/likes/:userId", async (req, res) => {
     try {
-      if (!req.session.userId) {
-        return res.json([]); // Return empty array if no session
-      }
-
+      const userId = parseInt(req.params.userId);
       const tools = await storage.getAllTools();
       
       const userLikes = await Promise.all(
         tools.map(async (tool) => {
-          const like = await storage.getUserToolLike(req.session.userId!, tool.id);
+          const like = await storage.getUserToolLike(userId, tool.id);
           return {
             toolId: tool.id,
             liked: like?.liked || false

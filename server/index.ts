@@ -9,11 +9,14 @@ const app = express();
 // Session configuration
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your-secret-key',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
+  name: 'sessionId',
   cookie: {
-    secure: false, // Set to true in production with HTTPS
-    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+    secure: false,
+    httpOnly: false, // Allow JS access for debugging
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    sameSite: 'lax'
   }
 }));
 

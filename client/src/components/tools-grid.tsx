@@ -162,9 +162,28 @@ export default function ToolsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
 
-  // Initialize user session
+  // Generate or get user ID from localStorage
+  const [currentUserId] = useState(() => {
+    const stored = localStorage.getItem('toolsAppUserId');
+    if (stored) {
+      return parseInt(stored);
+    }
+    // Generate a unique user ID based on timestamp and random
+    const newUserId = Date.now() + Math.floor(Math.random() * 1000);
+    localStorage.setItem('toolsAppUserId', newUserId.toString());
+    return newUserId;
+  });
+
+  // Create user in database if needed
   const { data: userSession } = useQuery<{ userId: number; username: string }>({
     queryKey: ["/api/user/session"],
+    queryFn: async () => {
+      // Create user with the localStorage-based ID
+      const response = await apiRequest("/api/tools/user", "POST", {
+        tempUserId: currentUserId
+      });
+      return response;
+    }
   });
 
   // Fetch tools from database
@@ -180,8 +199,8 @@ export default function ToolsGrid() {
   const { data: userLikes = [] } = useQuery<
     Array<{ toolId: number; liked: boolean }>
   >({
-    queryKey: ["/api/tools/likes"],
-    enabled: !!userSession?.userId,
+    queryKey: ["/api/tools/likes", currentUserId],
+    enabled: !!currentUserId,
   });
 
   // Like toggle mutation
