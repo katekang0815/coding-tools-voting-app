@@ -93,7 +93,7 @@ const getToolConfig = (toolName: string): ToolDisplay => {
       name: "Canva",
       gradientFrom: "from-purple-500",
       gradientTo: "to-violet-600",
-      brandIcon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEqObTjgskSovzSyCVcNnpX8MwkTq-K9udVQ&s",
+      brandIcon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/canva.svg",
     },
     "Figma": {
       name: "Figma",
