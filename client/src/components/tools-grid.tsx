@@ -203,6 +203,10 @@ export default function ToolsGrid() {
   // Like toggle mutation
   const likeMutation = useMutation({
     mutationFn: async (toolId: number) => {
+      // Ensure session exists before making like request
+      if (!userSession?.userId) {
+        throw new Error("User session not established");
+      }
       return await apiRequest(`/api/tools/${toolId}/like`, "POST");
     },
     onSuccess: () => {
