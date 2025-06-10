@@ -359,12 +359,9 @@ export default function ToolsGrid() {
                   absolute -top-1 -right-1 sm:-top-2 sm:-right-2 2xl:-top-3 2xl:-right-3
                   w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 2xl:w-12 2xl:h-12
                   flex items-center justify-center
-                  transition-transform duration-300 hover:scale-110
+                  transition-all duration-300 hover:scale-110
                   disabled:opacity-50
-                  
-                  opacity-0
-                  group-hover:opacity-100
-                  ${isLiked ? "opacity-100" : ""}
+                  ${isLiked ? "opacity-100" : "opacity-0 group-hover:opacity-100"}
                 `}
               >
                 <Heart
