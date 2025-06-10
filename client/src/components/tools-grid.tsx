@@ -111,8 +111,7 @@ export default function ToolsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
 
-  // Keep track of which tool IDs are "liked" locally for immediate UI feedback
-  const [likedTools, setLikedTools] = useState<Set<number>>(new Set());
+
 
   // Generate or get user ID from localStorage
   const [currentUserId] = useState(() => {
@@ -257,14 +256,6 @@ export default function ToolsGrid() {
 
   const handleLike = useCallback(
     (toolId: number) => {
-      // 1) Toggle our local UI state immediately
-      setLikedTools((prev) => {
-        const next = new Set(prev);
-        if (next.has(toolId)) next.delete(toolId);
-        else next.add(toolId);
-        return next;
-      });
-      // 2) Fire off your mutation (optimistic UI)
       likeMutation.mutate(toolId);
     },
     [likeMutation],
@@ -331,7 +322,7 @@ export default function ToolsGrid() {
     >
       {sortedTools.map((tool) => {
         const displayConfig = getToolDisplayConfig(tool.name);
-        const isLiked = likedTools.has(tool.id);
+        const isLiked = isToolLiked(tool.id);
         return (
           <div
             key={tool.name}
