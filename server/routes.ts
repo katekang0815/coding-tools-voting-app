@@ -129,20 +129,5 @@ export async function registerRoutes(app: Express): Promise<void> {
     }
   });
 
-  // Reset all like counts to zero
-  app.post("/api/tools/reset-likes", async (req, res) => {
-    try {
-      await storage.resetAllLikeCounts();
-      res.json({ message: "All like counts have been reset to zero" });
-    } catch (error: any) {
-      console.error("Error resetting like counts:", error);
-      if (error.message === "Database not available") {
-        res.status(503).json({ message: "Database temporarily unavailable" });
-      } else {
-        res.status(500).json({ message: "Failed to reset like counts" });
-      }
-    }
-  });
-
 
 }
