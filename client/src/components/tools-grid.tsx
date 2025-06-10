@@ -134,13 +134,13 @@ const ToolItem = memo(({
       <div className="relative p-3 sm:p-4 md:p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all duration-300">
         <div className="flex flex-col items-center">
           <div
-            className={`tool-icon w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3`}
+            className={`tool-icon w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg mb-2 sm:mb-3 ${tool.name === 'Canva' ? 'bg-white' : ''}`}
           >
             {displayConfig.brandIcon ? (
               <img
                 src={displayConfig.brandIcon}
                 alt={`${tool.name} icon`}
-                className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8"
+                className={`w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 ${tool.name === 'Canva' ? 'bg-white rounded-full p-1' : ''}`}
               />
             ) : (
               displayConfig.icon
